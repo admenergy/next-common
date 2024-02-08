@@ -15,7 +15,7 @@
     "components": "./src/components/index.ts",
     ".": "./src/index.ts"
   },
-  "private": true,
+  "private": false,
   "scripts": {
     "==[ Development ]==": "",
     "build": "npm run clean && webpack --mode production && git add dist/",
