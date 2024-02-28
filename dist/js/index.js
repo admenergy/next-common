@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("react"), require("@mui/material"));
+		module.exports = factory(require("react"), require("@mui/material"), require("notistack"));
 	else if(typeof define === 'function' && define.amd)
-		define(["react", "@mui/material"], factory);
+		define(["react", "@mui/material", "notistack"], factory);
 	else if(typeof exports === 'object')
-		exports["@admenergy/next-common"] = factory(require("react"), require("@mui/material"));
+		exports["@admenergy/next-common"] = factory(require("react"), require("@mui/material"), require("notistack"));
 	else
-		root["@admenergy/next-common"] = factory(root["react"], root["@mui/material"]);
-})(global, (__WEBPACK_EXTERNAL_MODULE__155__, __WEBPACK_EXTERNAL_MODULE__823__) => {
+		root["@admenergy/next-common"] = factory(root["react"], root["@mui/material"], root["notistack"]);
+})(global, (__WEBPACK_EXTERNAL_MODULE__155__, __WEBPACK_EXTERNAL_MODULE__823__, __WEBPACK_EXTERNAL_MODULE__988__) => {
 return /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
@@ -118,6 +118,13 @@ module.exports = __WEBPACK_EXTERNAL_MODULE__823__;
 
 /***/ }),
 
+/***/ 988:
+/***/ ((module) => {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE__988__;
+
+/***/ }),
+
 /***/ 155:
 /***/ ((module) => {
 
@@ -196,11 +203,62 @@ module.exports = __WEBPACK_EXTERNAL_MODULE__155__;
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   components: () => (/* reexport module object */ _components__WEBPACK_IMPORTED_MODULE_0__)
-/* harmony export */ });
-/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(85);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  components: () => (/* reexport */ components),
+  hooks: () => (/* reexport */ hooks_namespaceObject)
+});
+
+// NAMESPACE OBJECT: ./src/hooks/index.ts
+var hooks_namespaceObject = {};
+__webpack_require__.r(hooks_namespaceObject);
+__webpack_require__.d(hooks_namespaceObject, {
+  useBetterSnackbar: () => (useBetterSnackbar)
+});
+
+// EXTERNAL MODULE: ./src/components/index.ts + 2 modules
+var components = __webpack_require__(85);
+// EXTERNAL MODULE: external "notistack"
+var external_notistack_ = __webpack_require__(988);
+// EXTERNAL MODULE: external "react"
+var external_react_ = __webpack_require__(155);
+;// CONCATENATED MODULE: ./src/hooks/useBetterSnackbar.tsx
+
+
+
+function useBetterSnackbar() {
+  var _useSnackbar = (0,external_notistack_.useSnackbar)(),
+    enqueueSnackbar = _useSnackbar.enqueueSnackbar;
+  var successSnack = (0,external_react_.useCallback)(function (message) {
+    enqueueSnackbar(message, {
+      variant: "success"
+    });
+  }, [enqueueSnackbar]);
+  var errorSnack = (0,external_react_.useCallback)(function (message, error) {
+    if (message instanceof Error) {
+      error = message;
+      message = error.message;
+    }
+    enqueueSnackbar( /*#__PURE__*/React.createElement(components.ErrorMessage, {
+      friendly: message,
+      error: error
+    }), {
+      variant: "error"
+    });
+  }, [enqueueSnackbar]);
+  return {
+    successSnack: successSnack,
+    errorSnack: errorSnack
+  };
+}
+;// CONCATENATED MODULE: ./src/hooks/index.ts
+
+;// CONCATENATED MODULE: ./src/index.ts
+
+
 
 
 })();
