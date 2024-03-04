@@ -47,4 +47,4 @@ export function ErrorMessage({ friendly, error }: ErrorMessageProps) {
   } else {
     return <>{friendly}</>;
   }
-};
+}
