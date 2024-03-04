@@ -6,7 +6,7 @@ export function useBetterSnackbar() {
   const { enqueueSnackbar } = useSnackbar();
 
   const successSnack = useCallback(
-    (message) => {
+    (message: string) => {
       enqueueSnackbar(message, {
         variant: "success",
       });
@@ -15,10 +15,16 @@ export function useBetterSnackbar() {
   );
 
   const errorSnack = useCallback(
-    (message, error) => {
-      if (message instanceof Error) {
-        error = message;
-        message = error.message;
+    (messageOrError: string | Error) => {
+      let message: string;
+      let error: Error;
+
+      if (messageOrError instanceof Error) {
+        error = messageOrError;
+        message = messageOrError.message;
+      } else {
+        message = messageOrError;
+        error = new Error(message);
       }
 
       enqueueSnackbar(
