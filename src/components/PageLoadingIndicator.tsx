@@ -34,7 +34,7 @@ const styles = {
  * <PageLoadingIndicator />
  * ```
  */
-export const PageLoadingIndicator: React.FC = () => {
+export function PageLoadingIndicator() {
   return (
     <Box sx={styles.centerAlignOuter}>
       <Box sx={styles.centerAlignInner}>
@@ -44,4 +44,4 @@ export const PageLoadingIndicator: React.FC = () => {
       </Box>
     </Box>
   );
-};
+}
