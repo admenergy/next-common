@@ -117,7 +117,7 @@ var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_)
  * @example
  * <ErrorMessage friendly="Oops! Something went wrong." error={new Error("Detailed error message")} />
  */
-var ErrorMessage = function ErrorMessage(_ref) {
+function ErrorMessage(_ref) {
   var friendly = _ref.friendly,
     error = _ref.error;
   if (error instanceof Error) {
@@ -137,7 +137,7 @@ var ErrorMessage = function ErrorMessage(_ref) {
   } else {
     return /*#__PURE__*/external_react_default().createElement((external_react_default()).Fragment, null, friendly);
   }
-};
+}
 // EXTERNAL MODULE: external "@mui/material"
 var material_ = __webpack_require__(823);
 ;// CONCATENATED MODULE: ./src/components/PageLoadingIndicator.tsx
@@ -176,7 +176,7 @@ var styles = {
  * <PageLoadingIndicator />
  * ```
  */
-var PageLoadingIndicator = function PageLoadingIndicator() {
+function PageLoadingIndicator() {
   return /*#__PURE__*/external_react_default().createElement(material_.Box, {
     sx: styles.centerAlignOuter
   }, /*#__PURE__*/external_react_default().createElement(material_.Box, {
@@ -186,7 +186,7 @@ var PageLoadingIndicator = function PageLoadingIndicator() {
   }, /*#__PURE__*/external_react_default().createElement(material_.CircularProgress, {
     size: 128
   }))));
-};
+}
 ;// CONCATENATED MODULE: ./src/components/index.ts
 
 
