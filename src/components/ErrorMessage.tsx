@@ -11,10 +11,7 @@ interface ErrorMessageProps {
  * @example
  * <ErrorMessage friendly="Oops! Something went wrong." error={new Error("Detailed error message")} />
  */
-export const ErrorMessage: React.FC<ErrorMessageProps> = ({
-  friendly,
-  error,
-}) => {
+export function ErrorMessage({ friendly, error }: ErrorMessageProps) {
   if (error instanceof Error) {
     return (
       <div
