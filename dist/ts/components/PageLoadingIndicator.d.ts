@@ -1,4 +1,3 @@
-import React from "react";
 /**
  * Represents a component that displays a loading indicator.
  * This component is designed to be centered on the page and shows a circular progress indicator.
@@ -9,4 +8,4 @@ import React from "react";
  * <PageLoadingIndicator />
  * ```
  */
-export declare function PageLoadingIndicator(): React.JSX.Element;
+export declare function PageLoadingIndicator(): import("react/jsx-runtime").JSX.Element;

@@ -38,5 +38,5 @@ export declare function useFetch(paramsCallback: () => FetchParams, watchList: a
 export declare function FetchProvider({ children, fetchAuth, }: {
     children: React.ReactNode;
     fetchAuth?: (url: string, data?: object, options?: FetchJsonOptions) => Promise<any>;
-}): import("react").JSX.Element;
+}): import("react/jsx-runtime").JSX.Element;
 export {};

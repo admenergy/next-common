@@ -1,4 +1,3 @@
-import React from "react";
 interface ErrorMessageProps {
     friendly: string;
     error?: Error | {
@@ -11,5 +10,5 @@ interface ErrorMessageProps {
  * @example
  * <ErrorMessage friendly="Oops! Something went wrong." error={new Error("Detailed error message")} />
  */
-export declare function ErrorMessage({ friendly, error }: ErrorMessageProps): React.JSX.Element;
+export declare function ErrorMessage({ friendly, error }: ErrorMessageProps): import("react/jsx-runtime").JSX.Element;
 export {};
