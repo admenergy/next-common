@@ -2130,7 +2130,7 @@ function useFetch(paramsCallback, watchList) {
     return paramsCallback();
   }, watchList);
   var _useLoadingCallback = useLoadingCallback( /*#__PURE__*/useFetch_asyncToGenerator( /*#__PURE__*/useFetch_regeneratorRuntime().mark(function _callee() {
-      var _params$auth, auth, f, _data;
+      var _params$auth, auth, f, data;
       return useFetch_regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) switch (_context.prev = _context.next) {
           case 0:
@@ -2162,15 +2162,15 @@ function useFetch(paramsCallback, watchList) {
             _context.next = 14;
             return f(params.url, params.data, params.options);
           case 14:
-            _data = _context.sent;
+            data = _context.sent;
             if (!params.ok) {
               _context.next = 18;
               break;
             }
             _context.next = 18;
-            return params.ok(_data);
+            return params.ok(data);
           case 18:
-            return _context.abrupt("return", _data);
+            return _context.abrupt("return", data);
           case 21:
             _context.prev = 21;
             _context.t1 = _context["catch"](7);
