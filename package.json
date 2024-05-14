@@ -9,11 +9,16 @@
     "./components": {
       "import": "./dist/js/components/index.js",
       "types": "./dist/ts/components/index.d.ts"
+    },
+    "./hooks": {
+      "import": "./dist/js/hooks/index.js",
+      "types": "./dist/ts/hooks/index.d.ts"
     }
   },
   "webpackEntry": {
     ".": "./src/index.ts",
-    "components": "./src/components/index.ts"
+    "components": "./src/components/index.ts",
+    "hooks": "./src/hooks/index.ts"
   },
   "private": false,
   "scripts": {
