@@ -1,5 +1,5 @@
-/// <reference types="react" />
 import { FetchJsonOptions } from "js-common/client";
+import React from "react";
 interface FetchParams {
     url: string;
     data?: {
