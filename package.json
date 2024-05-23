@@ -44,7 +44,7 @@
     "@emotion/styled": "^11.11.5",
     "@mui/icons-material": "^5.15.18",
     "@mui/material": "^5.15.18",
-    "cookies-next": "^4.2.0",
+    "cookies-next": "^4.2.1",
     "js-common": "git+ssh://git@github.com:admenergy/js-common.git#main",
     "lodash": "^4.17.21",
     "lodash-es": "^4.17.21",
