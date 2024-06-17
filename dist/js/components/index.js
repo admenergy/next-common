@@ -95,8 +95,6 @@ module.exports = __WEBPACK_EXTERNAL_MODULE__155__;
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
-(() => {
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
@@ -189,8 +187,6 @@ function PageLoadingIndicator() {
 }
 ;// CONCATENATED MODULE: ./src/components/index.ts
 
-
-})();
 
 /******/ 	return __webpack_exports__;
 /******/ })()
