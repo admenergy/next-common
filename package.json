@@ -42,7 +42,7 @@
     "@azure/msal-react": "^2.0.22",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
-    "@mui/icons-material": "^6.0.1",
+    "@mui/icons-material": "^6.0.2",
     "@mui/material": "^6.0.1",
     "cookies-next": "^4.2.1",
     "js-common": "git+ssh://git@github.com:admenergy/js-common.git#main",
