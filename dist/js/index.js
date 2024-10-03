@@ -155,7 +155,7 @@ function useBetterSnackbar() {
       message = messageOrError;
       error = new Error(message);
     }
-    enqueueSnackbar( /*#__PURE__*/external_react_default().createElement(components.ErrorMessage, {
+    enqueueSnackbar(/*#__PURE__*/external_react_default().createElement(components.ErrorMessage, {
       friendly: message,
       error: error
     }), {
@@ -213,7 +213,7 @@ function useLoadingCallback(callback, watchList) {
     _useState4 = _slicedToArray(_useState3, 2),
     error = _useState4[0],
     setError = _useState4[1];
-  var wrappedCallback = (0,external_react_.useCallback)( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+  var wrappedCallback = (0,external_react_.useCallback)(/*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
     var result,
       errorInstance,
       _args = arguments;
@@ -303,7 +303,7 @@ function useFetch(paramsCallback, watchList) {
   var params = (0,external_react_.useMemo)(function () {
     return paramsCallback();
   }, watchList);
-  var _useLoadingCallback = useLoadingCallback( /*#__PURE__*/useFetch_asyncToGenerator( /*#__PURE__*/useFetch_regeneratorRuntime().mark(function _callee() {
+  var _useLoadingCallback = useLoadingCallback(/*#__PURE__*/useFetch_asyncToGenerator(/*#__PURE__*/useFetch_regeneratorRuntime().mark(function _callee() {
       var _params$auth, auth, f, data;
       return useFetch_regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) switch (_context.prev = _context.next) {
