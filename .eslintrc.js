@@ -59,7 +59,6 @@ module.exports = {
       },
     ],
     "@typescript-eslint/no-var-requires": "off",
-    "deprecation/deprecation": "warn",
     "no-cond-assign": "off",
     "no-constant-condition": "off",
     "no-control-regex": "off",
