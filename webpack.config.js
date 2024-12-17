@@ -7,7 +7,7 @@ Object.keys(packageJson.dependencies).forEach((dep) => {
 });
 
 const clientConfig = {
-  target: "node",
+  target: "web",
   optimization: {
     usedExports: false,
     minimize: false,
@@ -20,6 +20,7 @@ const clientConfig = {
       name: packageJson.name,
       type: "umd",
     },
+    globalObject: "this",
   },
   externals: dependencies,
   resolve: {
