@@ -7,7 +7,7 @@
 		exports["@admenergy/next-common"] = factory(require("react"), require("@mui/material"), require("notistack"), require("lodash"));
 	else
 		root["@admenergy/next-common"] = factory(root["react"], root["@mui/material"], root["notistack"], root["lodash"]);
-})(global, (__WEBPACK_EXTERNAL_MODULE__155__, __WEBPACK_EXTERNAL_MODULE__823__, __WEBPACK_EXTERNAL_MODULE__988__, __WEBPACK_EXTERNAL_MODULE__773__) => {
+})(this, (__WEBPACK_EXTERNAL_MODULE__155__, __WEBPACK_EXTERNAL_MODULE__823__, __WEBPACK_EXTERNAL_MODULE__988__, __WEBPACK_EXTERNAL_MODULE__773__) => {
 return /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -395,7 +395,7 @@ function FetchProvider(_ref2) {
 	if(true)
 		module.exports = factory(__webpack_require__(773));
 	else {}
-})(global, (__WEBPACK_EXTERNAL_MODULE__773__) => {
+})(__webpack_require__.g, (__WEBPACK_EXTERNAL_MODULE__773__) => {
 return /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
@@ -1027,6 +1027,18 @@ module.exports = __WEBPACK_EXTERNAL_MODULE__155__;
 /******/ 				}
 /******/ 			}
 /******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/global */
+/******/ 	(() => {
+/******/ 		__webpack_require__.g = (function() {
+/******/ 			if (typeof globalThis === 'object') return globalThis;
+/******/ 			try {
+/******/ 				return this || new Function('return this')();
+/******/ 			} catch (e) {
+/******/ 				if (typeof window === 'object') return window;
+/******/ 			}
+/******/ 		})();
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
