@@ -1,6 +1,6 @@
-import { PageLoadingIndicator } from "@/components";
 import { render } from "@testing-library/react";
 import React from "react";
+import { PageLoadingIndicator } from "~/components";
 
 jest.mock("@mui/material", () => ({
   ...jest.requireActual("@mui/material"),

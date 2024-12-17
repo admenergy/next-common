@@ -1,5 +1,5 @@
-import { useBetterSnackbar } from "@/hooks/useBetterSnackbar";
 import React, { useCallback, useState } from "react";
+import { useBetterSnackbar } from "~/hooks/useBetterSnackbar";
 
 const DEV = process.env.NODE_ENV !== "production";
 

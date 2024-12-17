@@ -43,7 +43,7 @@
     "@mui/icons-material": "^6.3.0",
     "@mui/material": "^6.3.0",
     "cookies-next": "^5.0.2",
-    "js-common": "https://github.com/admenergy/js-common.git#main",
+    "js-common": "https://github.com/admenergy/js-common.git#next",
     "lodash": "^4.17.21",
     "lodash-es": "^4.17.21",
     "notistack": "^3.0.1",

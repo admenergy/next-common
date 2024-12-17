@@ -1,6 +1,6 @@
-import { ErrorMessage } from "@/components";
 import { render } from "@testing-library/react";
 import React from "react";
+import { ErrorMessage } from "~/components";
 
 describe("Test", () => {
   it("renders without crashing", () => {

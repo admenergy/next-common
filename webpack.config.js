@@ -7,7 +7,7 @@ Object.keys(packageJson.dependencies).forEach((dep) => {
 });
 
 const clientConfig = {
-  target: "web",
+  target: "node",
   optimization: {
     usedExports: false,
     minimize: false,
@@ -26,7 +26,7 @@ const clientConfig = {
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
     alias: {
-      "@": path.resolve(__dirname, "src/"),
+      "~": path.resolve(__dirname, "src/"),
     },
   },
   module: {
