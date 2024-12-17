@@ -1,6 +1,6 @@
-import { ErrorMessage } from "@/components";
 import { useSnackbar } from "notistack";
 import React, { useCallback } from "react";
+import { ErrorMessage } from "~/components";
 
 export function useBetterSnackbar() {
   const { enqueueSnackbar } = useSnackbar();
