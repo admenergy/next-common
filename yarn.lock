@@ -4930,7 +4930,8 @@ jest@^29.7.0:
 
 "js-common@https://github.com/admenergy/js-common.git#main":
   version "1.0.0"
-  resolved "https://github.com/admenergy/js-common.git#32cefa2927503065673ff75aa05cacafb85d2102"
+  uid f6764af178526609256cb9e232d95947f4b4b90b
+  resolved "https://github.com/admenergy/js-common.git#f6764af178526609256cb9e232d95947f4b4b90b"
   dependencies:
     json5 "^2.2.3"
     lodash "^4.17.21"
