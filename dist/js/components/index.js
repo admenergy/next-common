@@ -7,7 +7,7 @@
 		exports["@admenergy/next-common"] = factory(require("react"), require("@mui/material"));
 	else
 		root["@admenergy/next-common"] = factory(root["react"], root["@mui/material"]);
-})(global, (__WEBPACK_EXTERNAL_MODULE__155__, __WEBPACK_EXTERNAL_MODULE__823__) => {
+})(this, (__WEBPACK_EXTERNAL_MODULE__155__, __WEBPACK_EXTERNAL_MODULE__823__) => {
 return /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({

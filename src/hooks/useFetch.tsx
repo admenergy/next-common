@@ -1,7 +1,7 @@
-import { useBetterSnackbar } from "@/hooks/useBetterSnackbar";
-import { useLoadingCallback } from "@/hooks/useLoadingCallback";
 import { FetchJsonOptions, fetchJSON } from "js-common/client";
 import React, { createContext, useContext, useMemo } from "react";
+import { useBetterSnackbar } from "~/hooks/useBetterSnackbar";
+import { useLoadingCallback } from "~/hooks/useLoadingCallback";
 
 interface FetchParams {
   url: string;
