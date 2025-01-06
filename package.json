@@ -43,12 +43,12 @@
     "@mui/icons-material": "^6.3.0",
     "@mui/material": "^6.3.0",
     "cookies-next": "^5.0.2",
-    "js-common": "https://github.com/admenergy/js-common.git#main",
+    "js-common": "https://github.com/admenergy/js-common.git#react19",
     "lodash": "^4.17.21",
     "lodash-es": "^4.17.21",
     "notistack": "^3.0.1",
-    "react": ">=18.0.0 <19.0.0",
-    "react-dom": ">=18.0.0 <19.0.0"
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.26.0",
@@ -64,9 +64,9 @@
     "@types/jest": "^29.5.14",
     "@types/lodash": "^4.17.13",
     "@types/lodash-es": "^4.17.12",
-    "@types/react": ">=18.0.0 <19.0.0",
-    "@types/react-dom": ">=18.0.0 <19.0.0",
-    "@types/react-test-renderer": ">=18.0.0 <19.0.0",
+    "@types/react": "19.0.3",
+    "@types/react-dom": "19.0.2",
+    "@types/react-test-renderer": "19.0.0",
     "@typescript-eslint/eslint-plugin": "^8.19.0",
     "@typescript-eslint/parser": "^8.19.0",
     "babel-loader": "^9.2.1",
