@@ -35,7 +35,7 @@
     "purge": "rm -rf dist/ .next/ node_modules/ package-lock.json yarn.lock"
   },
   "dependencies": {
-    "@azure/msal-browser": "^4.5.0",
+    "@azure/msal-browser": "^4.5.1",
     "@azure/msal-node": "^3.2.3",
     "@azure/msal-react": "^3.0.5",
     "@emotion/react": "^11.14.0",
