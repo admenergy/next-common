@@ -5375,7 +5375,7 @@ jest-worker@^27.4.5:
 
 "js-common@https://github.com/admenergy/js-common.git#main":
   version "1.0.0"
-  resolved "https://github.com/admenergy/js-common.git#10ceb6c36cd75ca82cd87dbecae23a039c29c84c"
+  resolved "https://github.com/admenergy/js-common.git#9f7c7124f0398d4deb58665d4ad15f90bb3f8b8b"
   dependencies:
     json5 "^2.2.3"
     lodash "^4.17.21"
