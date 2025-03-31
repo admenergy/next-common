@@ -86,7 +86,7 @@
     "@microsoft/eslint-formatter-sarif": "^3.1.0",
     "@remix-run/dev": "^2.16.1",
     "@remix-run/express": "^2.16.1",
-    "@remix-run/node": "^2.16.1",
+    "@remix-run/node": "^2.16.4",
     "@remix-run/react": "^2.16.1",
     "@remix-run/serve": "^2.16.1",
     "@testing-library/dom": "^10.4.0",
