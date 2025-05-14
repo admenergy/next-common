@@ -36,10 +36,10 @@
     jsonwebtoken "^9.0.0"
     uuid "^8.3.0"
 
-"@azure/msal-react@^3.0.6":
-  version "3.0.7"
-  resolved "https://registry.yarnpkg.com/@azure/msal-react/-/msal-react-3.0.7.tgz#ce733609d1a24a595b6e8ea899e248bb8645f0b1"
-  integrity sha512-77S3eVslJMAXNiLmdrJkJ/gJupjeTdUQinYfc8EzgvLuU5QuLng7Lb5qgSz9DuZfYhC2rbOqvrz4x7o0YBXlBA==
+"@azure/msal-react@^3.0.12":
+  version "3.0.12"
+  resolved "https://registry.yarnpkg.com/@azure/msal-react/-/msal-react-3.0.12.tgz#84a2f4a85021d9a23fd3a92fe1c4d55e9c8ebf20"
+  integrity sha512-Rnw1hcx/ILYmbhcPZbhQNdBpf0jE3P0nMiwLKRMqgjnACqOiHQ5+ZZzEIXwEPiva9TPSrW34yvNBTLx8k/5pVg==
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.10.4", "@babel/code-frame@^7.12.13", "@babel/code-frame@^7.26.2":
   version "7.26.2"
