@@ -26,10 +26,10 @@
     "@csstools/css-tokenizer" "^3.0.3"
     lru-cache "^10.4.3"
 
-"@azure/msal-browser@^4.21.0":
-  version "4.21.0"
-  resolved "https://registry.yarnpkg.com/@azure/msal-browser/-/msal-browser-4.21.0.tgz#6b4911f0a246f4662c333a649a67d1fd56f52754"
-  integrity sha512-vgzhz1F3DIB8qcjeJ3DLxMAha4iEaV2BDd1nxPP0ovTjIrpFUGlbhI+Z0pnK+GXctf2UmCwujH2L8xd8CdlMvw==
+"@azure/msal-browser@^4.21.1":
+  version "4.21.1"
+  resolved "https://registry.yarnpkg.com/@azure/msal-browser/-/msal-browser-4.21.1.tgz#6e0f29a14a7540fb3bcba34fc7deb995670a9532"
+  integrity sha512-qGtzX3HJfJsOVeDcVrFZAYZoxLRjrW2lXzXqijgiBA5EtM9ud7F/EYgKKQ9TJU/WtE46szuZtQZx5vD4pEiknA==
   dependencies:
     "@azure/msal-common" "15.12.0"
 
