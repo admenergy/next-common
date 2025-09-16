@@ -107,7 +107,7 @@ __webpack_require__.d(__webpack_exports__, {
 // EXTERNAL MODULE: external "react"
 var external_react_ = __webpack_require__(155);
 var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_);
-;// ./src/components/ErrorMessage.tsx
+;// ./app/components/ErrorMessage.tsx
 
 /**
  * A user-friendly error message.
@@ -138,7 +138,7 @@ function ErrorMessage(_ref) {
 }
 // EXTERNAL MODULE: external "@mui/material"
 var material_ = __webpack_require__(823);
-;// ./src/components/PageLoadingIndicator.tsx
+;// ./app/components/PageLoadingIndicator.tsx
 
 
 var styles = {
@@ -185,7 +185,7 @@ function PageLoadingIndicator() {
     size: 128
   }))));
 }
-;// ./src/components/index.ts
+;// ./app/components/index.ts
 
 
 /******/ 	return __webpack_exports__;
