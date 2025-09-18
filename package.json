@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "@azure/msal-browser": "^4.22.1",
-    "@azure/msal-node": "^3.7.3",
+    "@azure/msal-node": "^3.7.4",
     "@azure/msal-react": "^3.0.19",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
