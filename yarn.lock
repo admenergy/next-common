@@ -33,10 +33,10 @@
   resolved "https://registry.yarnpkg.com/@asamuzakjp/nwsapi/-/nwsapi-2.3.9.tgz#ad5549322dfe9d153d4b4dd6f7ff2ae234b06e24"
   integrity sha512-n8GuYSrI9bF7FFZ/SjhwevlHc8xaVlb/7HmHelnc/PZXBD2ZR49NnN9sMMuDdEGPeeRQ5d0hqlSlEpgCX3Wl0Q==
 
-"@azure/msal-browser@^4.22.1":
-  version "4.22.1"
-  resolved "https://registry.yarnpkg.com/@azure/msal-browser/-/msal-browser-4.22.1.tgz#e4c41cc0bdae7b21b7aee8c013f99beea60c9410"
-  integrity sha512-/I76rBJpt5ZVfFXk+GkKxD4w1DZEbVpNn0aQjvRgnDnTYo3L/f8Oeo3R1O9eL/ccg5j1537iRLr7UwVhwnHtyg==
+"@azure/msal-browser@^4.23.0":
+  version "4.23.0"
+  resolved "https://registry.yarnpkg.com/@azure/msal-browser/-/msal-browser-4.23.0.tgz#9f4e943f2f624f1569acdcde83db7b7781d768d2"
+  integrity sha512-uHnfRwGAEHaYVXzpCtYsruy6PQxL2v76+MJ3+n/c/3PaTiTIa5ch7VofTUNoA39nHyjJbdiqTwFZK40OOTOkjw==
   dependencies:
     "@azure/msal-common" "15.12.0"
 
