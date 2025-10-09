@@ -1,6 +1,6 @@
 import { FetchJsonOptions } from "js-common/client";
 import React from "react";
-interface FetchParams {
+export interface UseFetchParams {
     url: string;
     data?: {
         [key: string]: any;
@@ -13,6 +13,16 @@ interface FetchParams {
     ok?: (data: any) => void;
     error?: (error: Error) => void;
 }
+export type UseFetchReturn = [
+    () => Promise<void>,
+    boolean,
+    // loading
+    Error | undefined,
+    () => void
+];
+export interface UseFetcherContextProps {
+    fetchAuth?: (url: string, data?: object, options?: FetchJsonOptions) => Promise<any>;
+}
 /**
  * A custom React hook that uses `fetchAuth` / `fetchJSON` to make API calls and wraps around `useLoadingCallback`.
  *
@@ -21,7 +31,7 @@ interface FetchParams {
  *
  * @prop fetchAuth? - This must be passed in the <FetchProvider value={{ fetchAuth }} />.
  *
- * @returns A hook containing: fetch function, loading state, and Error.
+ * @returns A hook containing: fetch function, loading state, Error, and cancel function.
  *
  * @throws TypeError If the parameter types are bad.
  * @throws UnauthorizedError If the response status is 401.
@@ -31,12 +41,11 @@ interface FetchParams {
  * @throws Error If the response is not JSON.
  *
  * @example
- * const [fetchData, loading, error] = useFetch(() => ({ url: `/api/session/login`, data: { email, password } }), [email, password]);
- * -> fetchData: Function, loading: boolean, error: Error
+ * const [fetchData, loading, error, cancel] = useFetch(() => ({ url: `/api/session/login`, data: { email, password } }), [email, password]);
+ * -> fetchData: Function, loading: boolean, error: Error, cancel: Function
  */
-export declare function useFetch(paramsCallback: () => FetchParams, watchList: any[]): [() => Promise<void>, boolean, Error | undefined];
-export declare function FetchProvider({ children, fetchAuth, }: {
+export declare function useFetch(paramsCallback: () => UseFetchParams, watchList: any[]): UseFetchReturn;
+export declare function UseFetchProvider({ children, fetchAuth, }: {
     children: React.ReactNode;
     fetchAuth?: (url: string, data?: object, options?: FetchJsonOptions) => Promise<any>;
 }): import("react/jsx-runtime").JSX.Element;
-export {};
