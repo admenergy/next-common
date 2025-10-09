@@ -202,6 +202,7 @@ __nested_webpack_require_7364__.r(__nested_webpack_exports__);
 
 // EXPORTS
 __nested_webpack_require_7364__.d(__nested_webpack_exports__, {
+  decodeQueryString: () => (/* reexport */ decodeQueryString),
   encodeForm: () => (/* reexport */ encodeForm),
   encodeQueryString: () => (/* reexport */ encodeQueryString),
   fetchJSON: () => (/* reexport */ fetchJSON),
@@ -209,6 +210,39 @@ __nested_webpack_require_7364__.d(__nested_webpack_exports__, {
   sset: () => (/* reexport */ sset)
 });
 
+;// ./app/client/decodeQueryString.ts
+/**
+ * Decodes a query string into an object. Starting "?" are auto-trimmed. Empty pair values are omitted.
+ *
+ * @param str - The query string to decode.
+ *
+ * @returns An object containing key-value pairs from the query string.
+ *
+ * @throws {TypeError} If the parameter types are bad.
+ *
+ * @example
+ * const query = decodeQueryString("?foo=bar");
+ * -> { foo: "bar" }
+ */
+function decodeQueryString(str) {
+  var query = {};
+  if (typeof str !== "string") {
+    throw new TypeError("decodeQueryString(str) : 'str' must be a string.");
+  }
+  if (!str) return {};
+  if (str.charAt(0) === "?") str = str.substring(1);
+  if (!str.length) return {};
+  str.split("&").forEach(function (str) {
+    var pair = str.split("=");
+    if (2 < pair.length) {
+      throw new Error("Query string is not well-formed");
+    }
+    var k = decodeURIComponent(pair[0]);
+    var v = decodeURIComponent(pair[1]);
+    if (v) query[String(k)] = v;
+  });
+  return query;
+}
 ;// ./app/client/encodeForm.ts
 /**
  * @todo Not done. Needs to support: checkbox, radio, select
@@ -570,6 +604,7 @@ function sset(key, value) {
 
 
 
+
 /******/ 	return __nested_webpack_exports__;
 /******/ })()
 ;
@@ -586,7 +621,7 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  FetchProvider: () => (/* reexport */ FetchProvider),
+  UseFetchProvider: () => (/* reexport */ UseFetchProvider),
   useBetterSnackbar: () => (/* reexport */ useBetterSnackbar),
   useFetch: () => (/* reexport */ useFetch),
   useLoadingCallback: () => (/* reexport */ useLoadingCallback)
@@ -716,12 +751,18 @@ function useLoadingCallback(callback, watchList) {
   return [wrappedCallback, loading, error];
 }
 ;// ./app/hooks/useFetch.tsx
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function useFetch_toConsumableArray(r) { return useFetch_arrayWithoutHoles(r) || useFetch_iterableToArray(r) || useFetch_unsupportedIterableToArray(r) || useFetch_nonIterableSpread(); }
 function useFetch_nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function useFetch_iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
 function useFetch_arrayWithoutHoles(r) { if (Array.isArray(r)) return useFetch_arrayLikeToArray(r); }
 function useFetch_regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return useFetch_regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (useFetch_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, useFetch_regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, useFetch_regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), useFetch_regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", useFetch_regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), useFetch_regeneratorDefine2(u), useFetch_regeneratorDefine2(u, o, "Generator"), useFetch_regeneratorDefine2(u, n, function () { return this; }), useFetch_regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (useFetch_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
 function useFetch_regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } useFetch_regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { useFetch_regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, useFetch_regeneratorDefine2(e, r, n, t); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function useFetch_asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
 function useFetch_asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { useFetch_asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { useFetch_asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 function useFetch_slicedToArray(r, e) { return useFetch_arrayWithHoles(r) || useFetch_iterableToArrayLimit(r, e) || useFetch_unsupportedIterableToArray(r, e) || useFetch_nonIterableRest(); }
@@ -734,7 +775,7 @@ function useFetch_arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
 
 
-var FetcherContext = /*#__PURE__*/(0,external_react_.createContext)({
+var UseFetcherContext = /*#__PURE__*/(0,external_react_.createContext)({
   fetchAuth: void 0
 });
 
@@ -746,7 +787,7 @@ var FetcherContext = /*#__PURE__*/(0,external_react_.createContext)({
  *
  * @prop fetchAuth? - This must be passed in the <FetchProvider value={{ fetchAuth }} />.
  *
- * @returns A hook containing: fetch function, loading state, and Error.
+ * @returns A hook containing: fetch function, loading state, Error, and cancel function.
  *
  * @throws TypeError If the parameter types are bad.
  * @throws UnauthorizedError If the response status is 401.
@@ -756,11 +797,11 @@ var FetcherContext = /*#__PURE__*/(0,external_react_.createContext)({
  * @throws Error If the response is not JSON.
  *
  * @example
- * const [fetchData, loading, error] = useFetch(() => ({ url: `/api/session/login`, data: { email, password } }), [email, password]);
- * -> fetchData: Function, loading: boolean, error: Error
+ * const [fetchData, loading, error, cancel] = useFetch(() => ({ url: `/api/session/login`, data: { email, password } }), [email, password]);
+ * -> fetchData: Function, loading: boolean, error: Error, cancel: Function
  */
 function useFetch(paramsCallback, watchList) {
-  var _useContext = (0,external_react_.useContext)(FetcherContext),
+  var _useContext = (0,external_react_.useContext)(UseFetcherContext),
     fetchAuth = _useContext.fetchAuth;
   var _useBetterSnackbar = useBetterSnackbar(),
     errorSnack = _useBetterSnackbar.errorSnack;
@@ -769,8 +810,15 @@ function useFetch(paramsCallback, watchList) {
   var params = (0,external_react_.useMemo)(function () {
     return paramsCallback();
   }, watchList);
+  var abortControllerRef = (0,external_react_.useRef)(null);
+  var cancel = function cancel() {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+      abortControllerRef.current = null;
+    }
+  };
   var _useLoadingCallback = useLoadingCallback(/*#__PURE__*/useFetch_asyncToGenerator(/*#__PURE__*/useFetch_regenerator().m(function _callee() {
-      var _params$auth, auth, f, data, _t, _t2;
+      var _params$auth, auth, f, options, data, _t, _t2;
       return useFetch_regenerator().w(function (_context) {
         while (1) switch (_context.p = _context.n) {
           case 0:
@@ -790,57 +838,76 @@ function useFetch(paramsCallback, watchList) {
             }
             return _context.a(2);
           case 3:
-            _context.p = 3;
+            // Cancel any existing request
+            cancel();
+
+            // Create new AbortController for this request
+            abortControllerRef.current = new AbortController();
+            _context.p = 4;
             auth = (_params$auth = params.auth) !== null && _params$auth !== void 0 ? _params$auth : true;
             f = auth ? fetchAuth : client.fetchJSON;
             if (f) {
-              _context.n = 4;
+              _context.n = 5;
               break;
             }
             throw new Error("No fetchAuth function provided.");
-          case 4:
-            _context.n = 5;
-            return f(params.url, params.data, params.options);
           case 5:
+            // Merge options with AbortSignal
+            options = _objectSpread(_objectSpread({}, params.options), {}, {
+              signal: abortControllerRef.current.signal
+            });
+            _context.n = 6;
+            return f(params.url, params.data, options);
+          case 6:
             data = _context.v;
             if (!params.ok) {
-              _context.n = 6;
+              _context.n = 7;
               break;
             }
-            _context.n = 6;
+            _context.n = 7;
             return params.ok(data);
-          case 6:
-            return _context.a(2, data);
           case 7:
-            _context.p = 7;
+            return _context.a(2, data);
+          case 8:
+            _context.p = 8;
             _t2 = _context.v;
-            if (!params.error) {
+            if (!(_t2 instanceof Error && _t2.name === "AbortError")) {
               _context.n = 9;
               break;
             }
-            _context.n = 8;
-            return params.error(_t2);
-          case 8:
-            _context.n = 10;
-            break;
+            return _context.a(2);
           case 9:
-            errorSnack(_t2);
+            if (!params.error) {
+              _context.n = 11;
+              break;
+            }
+            _context.n = 10;
+            return params.error(_t2);
           case 10:
+            _context.n = 12;
+            break;
+          case 11:
+            errorSnack(_t2);
+          case 12:
+            _context.p = 12;
+            abortControllerRef.current = null;
+            return _context.f(12);
+          case 13:
             return _context.a(2);
         }
-      }, _callee, null, [[3, 7]]);
+      }, _callee, null, [[4, 8, 12, 13]]);
     })), // eslint-disable-next-line react-hooks/exhaustive-deps
     [errorSnack].concat(useFetch_toConsumableArray(watchList))),
     _useLoadingCallback2 = useFetch_slicedToArray(_useLoadingCallback, 3),
     fetchCallback = _useLoadingCallback2[0],
     loading = _useLoadingCallback2[1],
     error = _useLoadingCallback2[2];
-  return [fetchCallback, loading, error];
+  return [fetchCallback, loading, error, cancel];
 }
-function FetchProvider(_ref2) {
+function UseFetchProvider(_ref2) {
   var children = _ref2.children,
     fetchAuth = _ref2.fetchAuth;
-  return /*#__PURE__*/external_react_default().createElement(FetcherContext.Provider, {
+  return /*#__PURE__*/external_react_default().createElement(UseFetcherContext.Provider, {
     value: {
       fetchAuth: fetchAuth
     }
