@@ -1,9 +1,9 @@
 import { FetchJsonOptions, fetchJSON } from "js-common/client";
-import React, { createContext, useContext, useMemo } from "react";
+import React, { createContext, useContext, useMemo, useRef } from "react";
 import { useBetterSnackbar } from "~/hooks/useBetterSnackbar";
 import { useLoadingCallback } from "~/hooks/useLoadingCallback";
 
-interface FetchParams {
+export interface UseFetchParams {
   url: string;
   data?: { [key: string]: any };
   options?: { [key: string]: any };
@@ -13,7 +13,14 @@ interface FetchParams {
   error?: (error: Error) => void;
 }
 
-interface FetcherContextProps {
+export type UseFetchReturn = [
+  () => Promise<void>, // fetchCallback
+  boolean, // loading
+  Error | undefined, // error
+  () => void, // cancel
+];
+
+export interface UseFetcherContextProps {
   fetchAuth?: (
     url: string,
     data?: object,
@@ -21,7 +28,7 @@ interface FetcherContextProps {
   ) => Promise<any>;
 }
 
-const FetcherContext = createContext<FetcherContextProps>({
+const UseFetcherContext = createContext<UseFetcherContextProps>({
   fetchAuth: void 0,
 });
 
@@ -33,7 +40,7 @@ const FetcherContext = createContext<FetcherContextProps>({
  *
  * @prop fetchAuth? - This must be passed in the <FetchProvider value={{ fetchAuth }} />.
  *
- * @returns A hook containing: fetch function, loading state, and Error.
+ * @returns A hook containing: fetch function, loading state, Error, and cancel function.
  *
  * @throws TypeError If the parameter types are bad.
  * @throws UnauthorizedError If the response status is 401.
@@ -43,19 +50,27 @@ const FetcherContext = createContext<FetcherContextProps>({
  * @throws Error If the response is not JSON.
  *
  * @example
- * const [fetchData, loading, error] = useFetch(() => ({ url: `/api/session/login`, data: { email, password } }), [email, password]);
- * -> fetchData: Function, loading: boolean, error: Error
+ * const [fetchData, loading, error, cancel] = useFetch(() => ({ url: `/api/session/login`, data: { email, password } }), [email, password]);
+ * -> fetchData: Function, loading: boolean, error: Error, cancel: Function
  */
 export function useFetch(
-  paramsCallback: () => FetchParams,
+  paramsCallback: () => UseFetchParams,
   watchList: any[],
-): [() => Promise<void>, boolean, Error | undefined] {
-  const { fetchAuth } = useContext(FetcherContext);
+): UseFetchReturn {
+  const { fetchAuth } = useContext(UseFetcherContext);
 
   const { errorSnack } = useBetterSnackbar();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const params: FetchParams = useMemo(() => paramsCallback(), watchList);
+  const params: UseFetchParams = useMemo(() => paramsCallback(), watchList);
+
+  const abortControllerRef = useRef<AbortController | null>(null);
+  const cancel = () => {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+      abortControllerRef.current = null;
+    }
+  };
 
   const [fetchCallback, loading, error] = useLoadingCallback(
     async () => {
@@ -63,6 +78,12 @@ export function useFetch(
         // Validation check failed
         return;
       }
+
+      // Cancel any existing request
+      cancel();
+
+      // Create new AbortController for this request
+      abortControllerRef.current = new AbortController();
 
       try {
         const auth = params.auth ?? true;
@@ -72,27 +93,40 @@ export function useFetch(
           throw new Error("No fetchAuth function provided.");
         }
 
-        const data = await f(params.url, params.data, params.options);
+        // Merge options with AbortSignal
+        const options = {
+          ...params.options,
+          signal: abortControllerRef.current.signal,
+        };
+
+        const data = await f(params.url, params.data, options);
         if (params.ok) {
           await params.ok(data);
         }
         return data;
       } catch (err) {
+        // Don't handle AbortError as a regular error
+        if (err instanceof Error && err.name === "AbortError") {
+          return;
+        }
+
         if (params.error) {
           await params.error(err);
         } else {
           errorSnack(err);
         }
+      } finally {
+        abortControllerRef.current = null;
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [errorSnack, ...watchList],
   );
 
-  return [fetchCallback, loading, error];
+  return [fetchCallback, loading, error, cancel];
 }
 
-export function FetchProvider({
+export function UseFetchProvider({
   children,
   fetchAuth,
 }: {
@@ -104,8 +138,8 @@ export function FetchProvider({
   ) => Promise<any>;
 }) {
   return (
-    <FetcherContext.Provider value={{ fetchAuth }}>
+    <UseFetcherContext.Provider value={{ fetchAuth }}>
       {children}
-    </FetcherContext.Provider>
+    </UseFetcherContext.Provider>
   );
 }
