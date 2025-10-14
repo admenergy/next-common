@@ -115,6 +115,9 @@ export function useFetch(
         } else {
           errorSnack(err);
         }
+
+        // Re-throw error so useLoadingCallback can capture and return it
+        throw err;
       } finally {
         abortControllerRef.current = null;
       }
