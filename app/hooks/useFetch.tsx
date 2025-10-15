@@ -96,22 +96,10 @@ export function useFetch(
         onAbort: () => {
           // Abort the current request
           if (abortControllerRef.current) {
-            console.log(
-              `🛑 [useFetch/Hook] Aborting request due to new 'last' mode request`,
-            );
             abortControllerRef.current.abort();
           }
         },
         effect: async (items: UseFetchParams[]) => {
-          console.log(
-            `🚀 [useFetch/Hook] Processing ${items.length} item(s) for: ${items[0]?.url}`,
-            {
-              mode,
-              itemsCount: items.length,
-              urls: items.map((item) => item.url),
-            },
-          );
-
           setLoading(true);
           setError(undefined);
 
@@ -121,9 +109,6 @@ export function useFetch(
             const itemToProcess = items[0]; // Get the first item to process
 
             if (itemToProcess.validate && !(await itemToProcess.validate())) {
-              console.log(
-                `⚠️ [useFetch/Hook] Validation failed for: ${itemToProcess.url}`,
-              );
               // Validation check failed
               return;
             }
@@ -141,19 +126,16 @@ export function useFetch(
 
             // Cancel any existing request
             if (abortControllerRef.current) {
-              console.log(
-                `🛑 [useFetch/Hook] Aborting previous request for: ${itemToProcess.url}`,
-              );
               abortControllerRef.current.abort();
+
               // Wait a tick for abort to propagate
-              await new Promise((resolve) => setTimeout(resolve, 0));
+              await new Promise((resolve) =>
+                queueMicrotask(() => resolve(undefined)),
+              );
             }
 
             // Create new AbortController for this request
             abortControllerRef.current = new AbortController();
-            console.log(
-              `📡 [useFetch/Hook] Starting request for: ${itemToProcess.url}`,
-            );
 
             try {
               const auth = itemToProcess.auth ?? true;
@@ -174,9 +156,6 @@ export function useFetch(
                 itemToProcess.data,
                 options,
               );
-              console.log(
-                `✅ [useFetch/Hook] Request completed successfully for: ${itemToProcess.url}`,
-              );
               if (itemToProcess.ok) {
                 await itemToProcess.ok(data);
               }
@@ -184,16 +163,8 @@ export function useFetch(
             } catch (err) {
               // Don't handle AbortError as a regular error
               if (err instanceof Error && err.name === "AbortError") {
-                console.log(
-                  `🛑 [useFetch/Hook] Request aborted for: ${itemToProcess.url}`,
-                );
                 return;
               }
-
-              console.log(
-                `❌ [useFetch/Hook] Request failed for: ${itemToProcess.url}`,
-                err,
-              );
               if (itemToProcess.error) {
                 await itemToProcess.error(err);
               } else {
@@ -208,17 +179,10 @@ export function useFetch(
             }
           } catch (err) {
             if (err instanceof Error && err.name !== "AbortError") {
-              console.log(
-                `💥 [useFetch/Hook] Effect error for: ${items[0]?.url}`,
-                err,
-              );
               setError(err instanceof Error ? err : new Error(String(err)));
             }
             throw err;
           } finally {
-            console.log(
-              `🏁 [useFetch/Hook] Effect completed for: ${items[0]?.url}`,
-            );
             setLoading(false);
           }
         },
@@ -235,14 +199,11 @@ export function useFetch(
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const cancel = () => {
-    console.log(`🚫 [useFetch/Hook] Manual cancel requested`);
     if (abortControllerRef.current) {
-      console.log(`🛑 [useFetch/Hook] Aborting current request via cancel()`);
       abortControllerRef.current.abort();
       abortControllerRef.current = null;
     }
     if (coalescerRef.current) {
-      console.log(`🗑️ [useFetch/Hook] Canceling coalescer queue`);
       coalescerRef.current.cancel();
     }
   };
@@ -256,23 +217,10 @@ export function useFetch(
     }
 
     const currentParams = paramsRef.current;
-    console.log(
-      `🔍 [useFetch/Hook] Received request for: ${currentParams.url}`,
-      {
-        mode: currentParams.mode || "last",
-        hasData: !!currentParams.data,
-        hasAuth: currentParams.auth ?? true,
-      },
-    );
 
     try {
       await coalescerRef.current.add(currentParams);
     } catch (err) {
-      console.log(
-        `❌ [useFetch/Hook] Request failed for: ${currentParams.url}`,
-        err,
-      );
-
       // Handle first-strict mode errors
       setError(err instanceof Error ? err : new Error(String(err)));
       if (currentParams.error) {
