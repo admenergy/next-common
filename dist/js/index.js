@@ -1046,95 +1046,79 @@ function useFetch(paramsCallback, watchList) {
                     coalescerRef.current.state.abortPromise = abortPromise;
                   }
 
-                  // Cancel any existing request
-                  if (!abortControllerRef.current) {
-                    _context.n = 5;
-                    break;
-                  }
-                  console.log("🛑 Cancelling existing request before starting new one");
-                  abortControllerRef.current.abort();
-
-                  // Wait a tick for abort to propagate
-                  _context.n = 5;
-                  return new Promise(function (resolve) {
-                    return queueMicrotask(function () {
-                      return resolve(undefined);
-                    });
-                  });
-                case 5:
                   // Create new AbortController for this request
                   abortControllerRef.current = new AbortController();
-                  _context.p = 6;
+                  _context.p = 5;
                   auth = (_itemToProcess$auth = itemToProcess.auth) !== null && _itemToProcess$auth !== void 0 ? _itemToProcess$auth : true;
                   f = auth ? capturedFetchAuth : client.fetchJSON;
                   if (f) {
-                    _context.n = 7;
+                    _context.n = 6;
                     break;
                   }
                   throw new Error("No fetchAuth function provided.");
-                case 7:
+                case 6:
                   // Merge options with AbortSignal
                   options = _objectSpread(_objectSpread({}, itemToProcess.options), {}, {
                     signal: abortControllerRef.current.signal
                   });
-                  _context.n = 8;
+                  _context.n = 7;
                   return f(itemToProcess.url, itemToProcess.data, options);
-                case 8:
+                case 7:
                   data = _context.v;
                   if (!itemToProcess.ok) {
-                    _context.n = 9;
+                    _context.n = 8;
                     break;
                   }
-                  _context.n = 9;
+                  _context.n = 8;
                   return itemToProcess.ok(data);
-                case 9:
+                case 8:
                   return _context.a(2, data);
-                case 10:
-                  _context.p = 10;
+                case 9:
+                  _context.p = 9;
                   _t2 = _context.v;
                   if (!(_t2 instanceof Error && _t2.name === "AbortError")) {
-                    _context.n = 11;
+                    _context.n = 10;
                     break;
                   }
                   return _context.a(2);
-                case 11:
+                case 10:
                   if (!itemToProcess.error) {
-                    _context.n = 13;
+                    _context.n = 12;
                     break;
                   }
-                  _context.n = 12;
+                  _context.n = 11;
                   return itemToProcess.error(_t2);
-                case 12:
-                  _context.n = 14;
+                case 11:
+                  _context.n = 13;
                   break;
-                case 13:
+                case 12:
                   capturedErrorSnack(_t2);
-                case 14:
+                case 13:
                   throw _t2;
-                case 15:
-                  _context.p = 15;
+                case 14:
+                  _context.p = 14;
                   console.log("🛑 Cleaning up AbortController in finally block");
                   abortControllerRef.current = null;
                   if (abortResolve) abortResolve();
-                  return _context.f(15);
-                case 16:
-                  _context.n = 18;
+                  return _context.f(14);
+                case 15:
+                  _context.n = 17;
                   break;
-                case 17:
-                  _context.p = 17;
+                case 16:
+                  _context.p = 16;
                   _t3 = _context.v;
                   if (_t3 instanceof Error && _t3.name !== "AbortError") {
                     setError(_t3 instanceof Error ? _t3 : new Error(String(_t3)));
                   }
                   throw _t3;
-                case 18:
-                  _context.p = 18;
+                case 17:
+                  _context.p = 17;
                   setLoading(false);
-                  return _context.f(18);
-                case 19:
+                  return _context.f(17);
+                case 18:
                   return _context.a(2);
               }
-            }, _callee, null, [[6, 10, 15, 16], [1, 17, 18, 19]]);
+            }, _callee, null, [[5, 9, 14, 15], [1, 16, 17, 18]]);
           }));
           function effect(_x) {
             return _effect.apply(this, arguments);

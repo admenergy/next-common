@@ -128,19 +128,6 @@ export function useFetch(
               (coalescerRef.current as any).state.abortPromise = abortPromise;
             }
 
-            // Cancel any existing request
-            if (abortControllerRef.current) {
-              console.log(
-                "🛑 Cancelling existing request before starting new one",
-              );
-              abortControllerRef.current.abort();
-
-              // Wait a tick for abort to propagate
-              await new Promise((resolve) =>
-                queueMicrotask(() => resolve(undefined)),
-              );
-            }
-
             // Create new AbortController for this request
             abortControllerRef.current = new AbortController();
 
