@@ -93,6 +93,15 @@ export function useFetch(
       coalescerRef.current = new RequestCoalescer({
         mode,
         combine: capturedCombine,
+        onAbort: () => {
+          // Abort the current request
+          if (abortControllerRef.current) {
+            console.log(
+              `🛑 [useFetch/Hook] Aborting request due to new 'last' mode request`,
+            );
+            abortControllerRef.current.abort();
+          }
+        },
         effect: async (items: UseFetchParams[]) => {
           console.log(
             `🚀 [useFetch/Hook] Processing ${items.length} item(s) for: ${items[0]?.url}`,

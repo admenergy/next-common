@@ -19,6 +19,11 @@ export interface RequestCoalescerOptions<TItem> {
      * Required for 'batch' mode
      */
     combine?: (items: TItem[]) => TItem;
+    /**
+     * Optional callback to abort the currently executing request
+     * Used by 'last' mode to abort previous requests
+     */
+    onAbort?: () => void;
 }
 /**
  * RequestCoalescer provides request coalescing mechanisms for batching operations.

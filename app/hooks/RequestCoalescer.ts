@@ -22,6 +22,12 @@ export interface RequestCoalescerOptions<TItem> {
    * Required for 'batch' mode
    */
   combine?: (items: TItem[]) => TItem;
+
+  /**
+   * Optional callback to abort the currently executing request
+   * Used by 'last' mode to abort previous requests
+   */
+  onAbort?: () => void;
 }
 
 /**
@@ -108,19 +114,30 @@ export class RequestCoalescer<TItem> {
         break;
 
       case "last":
-        // Wait for previous request to abort before starting new one
-        if (this.state.isExecuting && this.state.abortPromise) {
-          console.log(
-            `⏳ [useFetch/Coalescer] Waiting for previous request to abort in 'last' mode`,
-          );
-          await this.state.abortPromise;
-
-          // After waiting, check if buffer is empty (another waiting request already handled it)
-          if (this.state.userBuffer.length === 0) {
+        // If currently executing, abort it
+        if (this.state.isExecuting) {
+          // Trigger abort callback
+          if (this.options.onAbort) {
             console.log(
-              `⏭️ [useFetch/Coalescer] Skipping execution - buffer already processed by another waiting request`,
+              `🛑 [useFetch/Coalescer] Triggering abort in 'last' mode`,
             );
-            return; // Exit early, another request already processing
+            this.options.onAbort();
+          }
+
+          // Wait for abort to complete
+          if (this.state.abortPromise) {
+            console.log(
+              `⏳ [useFetch/Coalescer] Waiting for previous request to abort in 'last' mode`,
+            );
+            await this.state.abortPromise;
+
+            // After waiting, check if buffer is empty (another waiting request already handled it)
+            if (this.state.userBuffer.length === 0) {
+              console.log(
+                `⏭️ [useFetch/Coalescer] Skipping execution - buffer already processed by another waiting request`,
+              );
+              return; // Exit early, another request already processing
+            }
           }
         }
         // Clear user buffer except for the last item

@@ -957,7 +957,18 @@ var RequestCoalescer = /*#__PURE__*/function () {
               this.executeEffect();
               return _context.a(3, 11);
             case 6:
-              if (!(this.state.isExecuting && this.state.abortPromise)) {
+              if (!this.state.isExecuting) {
+                _context.n = 8;
+                break;
+              }
+              // Trigger abort callback
+              if (this.options.onAbort) {
+                console.log("\uD83D\uDED1 [useFetch/Coalescer] Triggering abort in 'last' mode");
+                this.options.onAbort();
+              }
+
+              // Wait for abort to complete
+              if (!this.state.abortPromise) {
                 _context.n = 8;
                 break;
               }
@@ -1196,6 +1207,13 @@ function useFetch(paramsCallback, watchList) {
       coalescerRef.current = new RequestCoalescer({
         mode: mode,
         combine: capturedCombine,
+        onAbort: function onAbort() {
+          // Abort the current request
+          if (abortControllerRef.current) {
+            console.log("\uD83D\uDED1 [useFetch/Hook] Aborting request due to new 'last' mode request");
+            abortControllerRef.current.abort();
+          }
+        },
         effect: function () {
           var _effect = useFetch_asyncToGenerator(/*#__PURE__*/useFetch_regenerator().m(function _callee(items) {
             var _items$;
