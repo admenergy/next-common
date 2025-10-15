@@ -94,9 +94,13 @@ export function useFetch(
         mode,
         combine: capturedCombine,
         onAbort: () => {
+          console.log("🛑 RequestCoalescer onAbort callback triggered");
           // Abort the current request
           if (abortControllerRef.current) {
+            console.log("🛑 Aborting request via coalescer onAbort callback");
             abortControllerRef.current.abort();
+          } else {
+            console.log("🛑 No AbortController to abort in coalescer onAbort");
           }
         },
         effect: async (items: UseFetchParams[]) => {
@@ -126,6 +130,9 @@ export function useFetch(
 
             // Cancel any existing request
             if (abortControllerRef.current) {
+              console.log(
+                "🛑 Cancelling existing request before starting new one",
+              );
               abortControllerRef.current.abort();
 
               // Wait a tick for abort to propagate
@@ -174,6 +181,7 @@ export function useFetch(
               // Re-throw error so it can be handled by the coalescer
               throw err;
             } finally {
+              console.log("🛑 Cleaning up AbortController in finally block");
               abortControllerRef.current = null;
               if (abortResolve) abortResolve();
             }
@@ -199,13 +207,16 @@ export function useFetch(
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const cancel = () => {
+    console.log("🛑 useFetch.cancel() called");
     if (abortControllerRef.current) {
+      console.log("🛑 Aborting current request via AbortController");
       abortControllerRef.current.abort();
       abortControllerRef.current = null;
+    } else {
+      console.log("🛑 No active AbortController to abort");
     }
-    if (coalescerRef.current) {
-      coalescerRef.current.cancel();
-    }
+
+    console.log("🛑 useFetch.cancel() completed");
   };
 
   const [loading, setLoading] = useState(false);

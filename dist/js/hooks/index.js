@@ -1184,9 +1184,13 @@ function useFetch(paramsCallback, watchList) {
         mode: mode,
         combine: capturedCombine,
         onAbort: function onAbort() {
+          console.log("🛑 RequestCoalescer onAbort callback triggered");
           // Abort the current request
           if (abortControllerRef.current) {
+            console.log("🛑 Aborting request via coalescer onAbort callback");
             abortControllerRef.current.abort();
+          } else {
+            console.log("🛑 No AbortController to abort in coalescer onAbort");
           }
         },
         effect: function () {
@@ -1231,6 +1235,7 @@ function useFetch(paramsCallback, watchList) {
                     _context.n = 5;
                     break;
                   }
+                  console.log("🛑 Cancelling existing request before starting new one");
                   abortControllerRef.current.abort();
 
                   // Wait a tick for abort to propagate
@@ -1292,6 +1297,7 @@ function useFetch(paramsCallback, watchList) {
                   throw _t2;
                 case 15:
                   _context.p = 15;
+                  console.log("🛑 Cleaning up AbortController in finally block");
                   abortControllerRef.current = null;
                   if (abortResolve) abortResolve();
                   return _context.f(15);
@@ -1332,13 +1338,15 @@ function useFetch(paramsCallback, watchList) {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   var cancel = function cancel() {
+    console.log("🛑 useFetch.cancel() called");
     if (abortControllerRef.current) {
+      console.log("🛑 Aborting current request via AbortController");
       abortControllerRef.current.abort();
       abortControllerRef.current = null;
+    } else {
+      console.log("🛑 No active AbortController to abort");
     }
-    if (coalescerRef.current) {
-      coalescerRef.current.cancel();
-    }
+    console.log("🛑 useFetch.cancel() completed");
   };
   var _useState = (0,external_react_.useState)(false),
     _useState2 = _slicedToArray(_useState, 2),
