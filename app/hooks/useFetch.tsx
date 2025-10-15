@@ -184,6 +184,7 @@ export function useFetch(
     return () => {
       if (coalescerRef.current) {
         coalescerRef.current.dispose();
+        coalescerRef.current = null;
       }
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
