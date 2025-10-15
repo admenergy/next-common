@@ -1,7 +1,14 @@
 import { FetchJsonOptions, fetchJSON } from "js-common/client";
-import React, { createContext, useContext, useMemo, useRef } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import { RequestCoalescer } from "~/hooks/RequestCoalescer";
 import { useBetterSnackbar } from "~/hooks/useBetterSnackbar";
-import { useLoadingCallback } from "~/hooks/useLoadingCallback";
 
 export interface UseFetchParams {
   url: string;
@@ -11,6 +18,8 @@ export interface UseFetchParams {
   validate?: () => Promise<boolean>;
   ok?: (data: any) => void;
   error?: (error: Error) => void;
+  mode?: "first" | "first-strict" | "last" | "batch";
+  combine?: (items: any[]) => any;
 }
 
 export type UseFetchReturn = [
@@ -58,73 +67,157 @@ export function useFetch(
   watchList: any[],
 ): UseFetchReturn {
   const { fetchAuth } = useContext(UseFetcherContext);
-
   const { errorSnack } = useBetterSnackbar();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const params: UseFetchParams = useMemo(() => paramsCallback(), watchList);
 
   const abortControllerRef = useRef<AbortController | null>(null);
+  const coalescerRef = useRef<RequestCoalescer<UseFetchParams> | null>(null);
+
+  // Create coalescer only once
+  useEffect(() => {
+    if (!coalescerRef.current) {
+      const mode = params.mode || "last";
+
+      if (mode === "batch" && !params.combine) {
+        throw new Error("combine function required when mode is 'batch'");
+      }
+
+      // Capture values at creation time
+      const capturedFetchAuth = fetchAuth;
+      const capturedErrorSnack = errorSnack;
+      const capturedCombine = params.combine;
+
+      coalescerRef.current = new RequestCoalescer({
+        mode,
+        combine: capturedCombine,
+        effect: async (items: UseFetchParams[]) => {
+          setLoading(true);
+          setError(undefined);
+
+          try {
+            // For batch mode, we expect a single combined item
+            // For other modes, we process the items according to the mode
+            const itemToProcess = items[0]; // Get the first item to process
+
+            if (itemToProcess.validate && !(await itemToProcess.validate())) {
+              // Validation check failed
+              return;
+            }
+
+            // Create abort promise for tracking cancellation
+            let abortResolve: (() => void) | null = null;
+            const abortPromise = new Promise<void>((resolve) => {
+              abortResolve = resolve;
+            });
+
+            // Store abort promise in coalescer state
+            if (coalescerRef.current) {
+              (coalescerRef.current as any).state.abortPromise = abortPromise;
+            }
+
+            // Cancel any existing request
+            if (abortControllerRef.current) {
+              abortControllerRef.current.abort();
+              // Wait a tick for abort to propagate
+              await new Promise((resolve) => setTimeout(resolve, 0));
+            }
+
+            // Create new AbortController for this request
+            abortControllerRef.current = new AbortController();
+
+            try {
+              const auth = itemToProcess.auth ?? true;
+              const f = auth ? capturedFetchAuth : fetchJSON;
+
+              if (!f) {
+                throw new Error("No fetchAuth function provided.");
+              }
+
+              // Merge options with AbortSignal
+              const options = {
+                ...itemToProcess.options,
+                signal: abortControllerRef.current.signal,
+              };
+
+              const data = await f(
+                itemToProcess.url,
+                itemToProcess.data,
+                options,
+              );
+              if (itemToProcess.ok) {
+                await itemToProcess.ok(data);
+              }
+              return data;
+            } catch (err) {
+              // Don't handle AbortError as a regular error
+              if (err instanceof Error && err.name === "AbortError") {
+                return;
+              }
+
+              if (itemToProcess.error) {
+                await itemToProcess.error(err);
+              } else {
+                capturedErrorSnack(err);
+              }
+
+              // Re-throw error so it can be handled by the coalescer
+              throw err;
+            } finally {
+              abortControllerRef.current = null;
+              if (abortResolve) abortResolve();
+            }
+          } catch (err) {
+            if (err instanceof Error && err.name !== "AbortError") {
+              setError(err instanceof Error ? err : new Error(String(err)));
+            }
+            throw err;
+          } finally {
+            setLoading(false);
+          }
+        },
+      });
+    }
+
+    // Only dispose on component unmount
+    return () => {
+      if (coalescerRef.current) {
+        coalescerRef.current.dispose();
+      }
+    };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   const cancel = () => {
     if (abortControllerRef.current) {
       abortControllerRef.current.abort();
       abortControllerRef.current = null;
     }
+    if (coalescerRef.current) {
+      coalescerRef.current.cancel();
+    }
   };
 
-  const [fetchCallback, loading, error] = useLoadingCallback(
-    async () => {
-      if (params.validate && !(await params.validate())) {
-        // Validation check failed
-        return;
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<Error | undefined>(undefined);
+
+  const fetchCallback = async () => {
+    if (!coalescerRef.current) {
+      throw new Error("RequestCoalescer not initialized");
+    }
+
+    try {
+      await coalescerRef.current.add(params);
+    } catch (err) {
+      // Handle first-strict mode errors
+      setError(err instanceof Error ? err : new Error(String(err)));
+      if (params.error) {
+        await params.error(err);
+      } else {
+        errorSnack(err);
       }
-
-      // Cancel any existing request
-      cancel();
-
-      // Create new AbortController for this request
-      abortControllerRef.current = new AbortController();
-
-      try {
-        const auth = params.auth ?? true;
-        const f = auth ? fetchAuth : fetchJSON;
-
-        if (!f) {
-          throw new Error("No fetchAuth function provided.");
-        }
-
-        // Merge options with AbortSignal
-        const options = {
-          ...params.options,
-          signal: abortControllerRef.current.signal,
-        };
-
-        const data = await f(params.url, params.data, options);
-        if (params.ok) {
-          await params.ok(data);
-        }
-        return data;
-      } catch (err) {
-        // Don't handle AbortError as a regular error
-        if (err instanceof Error && err.name === "AbortError") {
-          return;
-        }
-
-        if (params.error) {
-          await params.error(err);
-        } else {
-          errorSnack(err);
-        }
-
-        // Re-throw error so useLoadingCallback can capture and return it
-        throw err;
-      } finally {
-        abortControllerRef.current = null;
-      }
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [errorSnack, ...watchList],
-  );
+    }
+  };
 
   return [fetchCallback, loading, error, cancel];
 }

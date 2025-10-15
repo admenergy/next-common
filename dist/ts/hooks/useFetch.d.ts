@@ -12,6 +12,8 @@ export interface UseFetchParams {
     validate?: () => Promise<boolean>;
     ok?: (data: any) => void;
     error?: (error: Error) => void;
+    mode?: "first" | "first-strict" | "last" | "batch";
+    combine?: (items: any[]) => any;
 }
 export type UseFetchReturn = [
     () => Promise<void>,
