@@ -1,9 +1,9 @@
 import { FetchJsonOptions, fetchJSON } from "js-common/client";
 import React, {
   createContext,
+  useCallback,
   useContext,
   useEffect,
-  useMemo,
   useRef,
   useState,
 } from "react";
@@ -69,8 +69,9 @@ export function useFetch(
   const { fetchAuth } = useContext(UseFetcherContext);
   const { errorSnack } = useBetterSnackbar();
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const params: UseFetchParams = useMemo(() => paramsCallback(), watchList);
+  const paramsRef = useRef<UseFetchParams>(paramsCallback());
+  // Update ref on every render to capture latest params
+  paramsRef.current = paramsCallback();
 
   const abortControllerRef = useRef<AbortController | null>(null);
   const coalescerRef = useRef<RequestCoalescer<UseFetchParams> | null>(null);
@@ -78,16 +79,16 @@ export function useFetch(
   // Create coalescer only once
   useEffect(() => {
     if (!coalescerRef.current) {
-      const mode = params.mode || "last";
+      const mode = paramsRef.current.mode || "last";
 
-      if (mode === "batch" && !params.combine) {
+      if (mode === "batch" && !paramsRef.current.combine) {
         throw new Error("combine function required when mode is 'batch'");
       }
 
       // Capture values at creation time
       const capturedFetchAuth = fetchAuth;
       const capturedErrorSnack = errorSnack;
-      const capturedCombine = params.combine;
+      const capturedCombine = paramsRef.current.combine;
 
       coalescerRef.current = new RequestCoalescer({
         mode,
@@ -202,23 +203,25 @@ export function useFetch(
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | undefined>(undefined);
 
-  const fetchCallback = async () => {
+  const fetchCallback = useCallback(async () => {
     if (!coalescerRef.current) {
       throw new Error("RequestCoalescer not initialized");
     }
 
+    const currentParams = paramsRef.current;
+
     try {
-      await coalescerRef.current.add(params);
+      await coalescerRef.current.add(currentParams);
     } catch (err) {
       // Handle first-strict mode errors
       setError(err instanceof Error ? err : new Error(String(err)));
-      if (params.error) {
-        await params.error(err);
+      if (currentParams.error) {
+        await currentParams.error(err);
       } else {
         errorSnack(err);
       }
     }
-  };
+  }, [errorSnack]);
 
   return [fetchCallback, loading, error, cancel];
 }

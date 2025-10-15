@@ -1148,26 +1148,24 @@ function useFetch(paramsCallback, watchList) {
     fetchAuth = _useContext.fetchAuth;
   var _useBetterSnackbar = useBetterSnackbar(),
     errorSnack = _useBetterSnackbar.errorSnack;
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  var params = (0,external_react_.useMemo)(function () {
-    return paramsCallback();
-  }, watchList);
+  var paramsRef = (0,external_react_.useRef)(paramsCallback());
+  // Update ref on every render to capture latest params
+  paramsRef.current = paramsCallback();
   var abortControllerRef = (0,external_react_.useRef)(null);
   var coalescerRef = (0,external_react_.useRef)(null);
 
   // Create coalescer only once
   (0,external_react_.useEffect)(function () {
     if (!coalescerRef.current) {
-      var mode = params.mode || "last";
-      if (mode === "batch" && !params.combine) {
+      var mode = paramsRef.current.mode || "last";
+      if (mode === "batch" && !paramsRef.current.combine) {
         throw new Error("combine function required when mode is 'batch'");
       }
 
       // Capture values at creation time
       var capturedFetchAuth = fetchAuth;
       var capturedErrorSnack = errorSnack;
-      var capturedCombine = params.combine;
+      var capturedCombine = paramsRef.current.combine;
       coalescerRef.current = new RequestCoalescer({
         mode: mode,
         combine: capturedCombine,
@@ -1327,49 +1325,45 @@ function useFetch(paramsCallback, watchList) {
     _useState4 = _slicedToArray(_useState3, 2),
     error = _useState4[0],
     setError = _useState4[1];
-  var fetchCallback = /*#__PURE__*/function () {
-    var _ref = useFetch_asyncToGenerator(/*#__PURE__*/useFetch_regenerator().m(function _callee2() {
-      var _t4;
-      return useFetch_regenerator().w(function (_context2) {
-        while (1) switch (_context2.p = _context2.n) {
-          case 0:
-            if (coalescerRef.current) {
-              _context2.n = 1;
-              break;
-            }
-            throw new Error("RequestCoalescer not initialized");
-          case 1:
-            _context2.p = 1;
-            _context2.n = 2;
-            return coalescerRef.current.add(params);
-          case 2:
+  var fetchCallback = (0,external_react_.useCallback)(/*#__PURE__*/useFetch_asyncToGenerator(/*#__PURE__*/useFetch_regenerator().m(function _callee2() {
+    var currentParams, _t4;
+    return useFetch_regenerator().w(function (_context2) {
+      while (1) switch (_context2.p = _context2.n) {
+        case 0:
+          if (coalescerRef.current) {
+            _context2.n = 1;
+            break;
+          }
+          throw new Error("RequestCoalescer not initialized");
+        case 1:
+          currentParams = paramsRef.current;
+          _context2.p = 2;
+          _context2.n = 3;
+          return coalescerRef.current.add(currentParams);
+        case 3:
+          _context2.n = 7;
+          break;
+        case 4:
+          _context2.p = 4;
+          _t4 = _context2.v;
+          // Handle first-strict mode errors
+          setError(_t4 instanceof Error ? _t4 : new Error(String(_t4)));
+          if (!currentParams.error) {
             _context2.n = 6;
             break;
-          case 3:
-            _context2.p = 3;
-            _t4 = _context2.v;
-            // Handle first-strict mode errors
-            setError(_t4 instanceof Error ? _t4 : new Error(String(_t4)));
-            if (!params.error) {
-              _context2.n = 5;
-              break;
-            }
-            _context2.n = 4;
-            return params.error(_t4);
-          case 4:
-            _context2.n = 6;
-            break;
-          case 5:
-            errorSnack(_t4);
-          case 6:
-            return _context2.a(2);
-        }
-      }, _callee2, null, [[1, 3]]);
-    }));
-    return function fetchCallback() {
-      return _ref.apply(this, arguments);
-    };
-  }();
+          }
+          _context2.n = 5;
+          return currentParams.error(_t4);
+        case 5:
+          _context2.n = 7;
+          break;
+        case 6:
+          errorSnack(_t4);
+        case 7:
+          return _context2.a(2);
+      }
+    }, _callee2, null, [[2, 4]]);
+  })), [errorSnack]);
   return [fetchCallback, loading, error, cancel];
 }
 function UseFetchProvider(_ref2) {
