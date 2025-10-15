@@ -1,7 +1,7 @@
 /**
  * Defines the strategy for handling multiple requests during coalescing
  */
-export type CoalesceMode = "first" | "first-strict" | "last" | "batch";
+export type CoalesceMode = "first" | "first-strict" | "last" | "abort" | "batch";
 /**
  * Options for the RequestCoalescer
  */
@@ -21,7 +21,7 @@ export interface RequestCoalescerOptions<TItem> {
     combine?: (items: TItem[]) => TItem;
     /**
      * Optional callback to abort the currently executing request
-     * Used by 'last' mode to abort previous requests
+     * Used by 'abort' mode to abort previous requests
      */
     onAbort?: () => void;
 }

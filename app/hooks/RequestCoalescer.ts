@@ -1,7 +1,12 @@
 /**
  * Defines the strategy for handling multiple requests during coalescing
  */
-export type CoalesceMode = "first" | "first-strict" | "last" | "batch";
+export type CoalesceMode =
+  | "first"
+  | "first-strict"
+  | "last"
+  | "abort"
+  | "batch";
 
 /**
  * Options for the RequestCoalescer
@@ -25,7 +30,7 @@ export interface RequestCoalescerOptions<TItem> {
 
   /**
    * Optional callback to abort the currently executing request
-   * Used by 'last' mode to abort previous requests
+   * Used by 'abort' mode to abort previous requests
    */
   onAbort?: () => void;
 }
@@ -101,12 +106,32 @@ export class RequestCoalescer<TItem> {
         break;
 
       case "last":
+        // If already executing, wait for it to finish, then execute the last item
+        if (this.state.isExecuting) {
+          console.log(
+            "⏳ RequestCoalescer last-mode: waiting for ongoing request to finish",
+          );
+          return;
+        }
+
+        // Clear user buffer except for the last item
+        if (this.state.userBuffer.length > 1) {
+          this.state.userBuffer = [
+            this.state.userBuffer[this.state.userBuffer.length - 1],
+          ];
+        }
+
+        console.log("⏳ RequestCoalescer last-mode: executing last item");
+        this.executeEffect();
+        break;
+
+      case "abort":
         // Ensure the execution lane is clear before starting the last item.
         // Abort any in-flight execution and wait for its cleanup to complete.
         while (this.state.isExecuting) {
           if (this.options.onAbort) {
             console.log(
-              "🛑 RequestCoalescer last-mode: aborting in-flight request and awaiting completion",
+              "🛑 RequestCoalescer abort-mode: aborting in-flight request and awaiting completion",
             );
             this.options.onAbort();
           }
@@ -126,7 +151,7 @@ export class RequestCoalescer<TItem> {
         }
 
         console.log(
-          "🛑 RequestCoalescer last-mode: lane clear, starting last item",
+          "🛑 RequestCoalescer abort-mode: lane clear, starting last item",
         );
         this.executeEffect();
         break;
@@ -185,6 +210,7 @@ export class RequestCoalescer<TItem> {
         itemsToProcess = [this.state.executionBuffer[0]];
         break;
       case "last":
+      case "abort":
         itemsToProcess = [
           this.state.executionBuffer[this.state.executionBuffer.length - 1],
         ];
@@ -210,8 +236,23 @@ export class RequestCoalescer<TItem> {
       this.state.executionBuffer = [];
 
       // For batch mode, if new items arrived during execution, process them
-      if (this.options.mode === "batch" && this.state.userBuffer.length > 0) {
-        // Schedule next batch on next tick
+      if (this.options.mode === "last" && this.state.userBuffer.length > 0) {
+        // For last mode, if new items arrived during execution, process the last one
+        console.log(
+          "⏳ RequestCoalescer last-mode: ongoing request finished, processing last item",
+        );
+        // Clear user buffer except for the last item
+        if (this.state.userBuffer.length > 1) {
+          this.state.userBuffer = [
+            this.state.userBuffer[this.state.userBuffer.length - 1],
+          ];
+        }
+
+        queueMicrotask(() => this.executeEffect());
+      } else if (
+        this.options.mode === "batch" &&
+        this.state.userBuffer.length > 0
+      ) {
         queueMicrotask(() => this.executeEffect());
       } else {
         this.state.isExecuting = false;
