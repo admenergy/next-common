@@ -929,7 +929,7 @@ var RequestCoalescer = /*#__PURE__*/function () {
 
               // Handle different modes
               _t = this.options.mode;
-              _context.n = _t === "first" ? 2 : _t === "first-strict" ? 4 : _t === "last" ? 6 : _t === "batch" ? 9 : 11;
+              _context.n = _t === "first" ? 2 : _t === "first-strict" ? 4 : _t === "last" ? 6 : _t === "batch" ? 11 : 13;
               break;
             case 2:
               if (!this.state.isExecuting) {
@@ -940,7 +940,7 @@ var RequestCoalescer = /*#__PURE__*/function () {
             case 3:
               // Execute immediately
               this.executeEffect();
-              return _context.a(3, 11);
+              return _context.a(3, 13);
             case 4:
               if (!this.state.isExecuting) {
                 _context.n = 5;
@@ -950,18 +950,16 @@ var RequestCoalescer = /*#__PURE__*/function () {
             case 5:
               // Execute immediately
               this.executeEffect();
-              return _context.a(3, 11);
+              return _context.a(3, 13);
             case 6:
               if (!this.state.isExecuting) {
-                _context.n = 8;
+                _context.n = 10;
                 break;
               }
-              // Trigger abort callback
               if (this.options.onAbort) {
+                console.log("🛑 RequestCoalescer last-mode: aborting in-flight request and awaiting completion");
                 this.options.onAbort();
               }
-
-              // Wait for abort to complete
               if (!this.state.abortPromise) {
                 _context.n = 8;
                 break;
@@ -969,29 +967,32 @@ var RequestCoalescer = /*#__PURE__*/function () {
               _context.n = 7;
               return this.state.abortPromise;
             case 7:
-              if (!(this.state.userBuffer.length === 0)) {
-                _context.n = 8;
-                break;
-              }
-              return _context.a(2);
+              _context.n = 9;
+              break;
             case 8:
+              return _context.a(3, 10);
+            case 9:
+              _context.n = 6;
+              break;
+            case 10:
               // Clear user buffer except for the last item
               if (this.state.userBuffer.length > 1) {
                 this.state.userBuffer = [this.state.userBuffer[this.state.userBuffer.length - 1]];
               }
+              console.log("🛑 RequestCoalescer last-mode: lane clear, starting last item");
               this.executeEffect();
-              return _context.a(3, 11);
-            case 9:
+              return _context.a(3, 13);
+            case 11:
               if (!this.state.isExecuting) {
-                _context.n = 10;
+                _context.n = 12;
                 break;
               }
               return _context.a(2);
-            case 10:
+            case 12:
               // Execute immediately
               this.executeEffect();
-              return _context.a(3, 11);
-            case 11:
+              return _context.a(3, 13);
+            case 13:
               return _context.a(2);
           }
         }, _callee, this);

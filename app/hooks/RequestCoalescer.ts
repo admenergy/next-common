@@ -101,21 +101,20 @@ export class RequestCoalescer<TItem> {
         break;
 
       case "last":
-        // If currently executing, abort it
-        if (this.state.isExecuting) {
-          // Trigger abort callback
+        // Ensure the execution lane is clear before starting the last item.
+        // Abort any in-flight execution and wait for its cleanup to complete.
+        while (this.state.isExecuting) {
           if (this.options.onAbort) {
+            console.log(
+              "🛑 RequestCoalescer last-mode: aborting in-flight request and awaiting completion",
+            );
             this.options.onAbort();
           }
-
-          // Wait for abort to complete
           if (this.state.abortPromise) {
             await this.state.abortPromise;
-
-            // After waiting, check if buffer is empty (another waiting request already handled it)
-            if (this.state.userBuffer.length === 0) {
-              return; // Exit early, another request already processing
-            }
+          } else {
+            // No abort promise to await
+            break;
           }
         }
 
@@ -126,6 +125,9 @@ export class RequestCoalescer<TItem> {
           ];
         }
 
+        console.log(
+          "🛑 RequestCoalescer last-mode: lane clear, starting last item",
+        );
         this.executeEffect();
         break;
 
