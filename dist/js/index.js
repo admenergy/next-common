@@ -612,7 +612,7 @@ function sset(key, value) {
 
 /***/ }),
 
-/***/ 496:
+/***/ 422:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -670,107 +670,305 @@ function useBetterSnackbar() {
 }
 // EXTERNAL MODULE: ./node_modules/js-common/dist/js/client/index.js
 var client = __webpack_require__(245);
-;// ./app/hooks/useLoadingCallback.tsx
+;// ./app/hooks/RequestCoalescer.ts
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
 function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
 function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
 function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
-function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
-function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
-function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
-function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
-
-
-var DEV = "production" !== "production";
-
-/**
- * A wrapper for `useCallback` that provides a loading state and error Snackbars.
- *
- * @param callback - The callback function.
- * @param watchList - Watch list like with regular useCallback.
- *
- * @returns A hook containing: wrapped callback, loading state, and Error.
- */
-function useLoadingCallback(callback, watchList) {
-  if (DEV) {
-    if (typeof callback !== "function") {
-      throw new TypeError("useLoadingCallback(callback, watchList) : 'callback' must be a function.");
-    }
-    if (!Array.isArray(watchList)) {
-      throw new TypeError("useLoadingCallback(callback, watchList) : 'watchList' must be an array.");
-    }
-  }
-  var _useBetterSnackbar = useBetterSnackbar(),
-    errorSnack = _useBetterSnackbar.errorSnack;
-  var _useState = (0,external_react_.useState)(false),
-    _useState2 = _slicedToArray(_useState, 2),
-    loading = _useState2[0],
-    setLoading = _useState2[1];
-  var _useState3 = (0,external_react_.useState)(null),
-    _useState4 = _slicedToArray(_useState3, 2),
-    error = _useState4[0],
-    setError = _useState4[1];
-  var wrappedCallback = (0,external_react_.useCallback)(/*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-    var result,
-      errorInstance,
-      _args = arguments,
-      _t;
-    return _regenerator().w(function (_context) {
-      while (1) switch (_context.p = _context.n) {
-        case 0:
-          setLoading(true);
-          _context.p = 1;
-          _context.n = 2;
-          return callback.apply(void 0, _args);
-        case 2:
-          result = _context.v;
-          setError(null);
-          return _context.a(2, result);
-        case 3:
-          _context.p = 3;
-          _t = _context.v;
-          errorInstance = _t instanceof Error ? _t : new Error(String(_t));
-          errorSnack(errorInstance);
-          setError(errorInstance);
-        case 4:
-          _context.p = 4;
-          setLoading(false);
-          return _context.f(4);
-        case 5:
-          return _context.a(2);
-      }
-    }, _callee, null, [[1, 3, 4, 5]]);
-  })), // eslint-disable-next-line react-hooks/exhaustive-deps
-  [errorSnack].concat(_toConsumableArray(watchList)));
-  return [wrappedCallback, loading, error];
-}
-;// ./app/hooks/useFetch.tsx
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function useFetch_toConsumableArray(r) { return useFetch_arrayWithoutHoles(r) || useFetch_iterableToArray(r) || useFetch_unsupportedIterableToArray(r) || useFetch_nonIterableSpread(); }
-function useFetch_nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function useFetch_iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
-function useFetch_arrayWithoutHoles(r) { if (Array.isArray(r)) return useFetch_arrayLikeToArray(r); }
-function useFetch_regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return useFetch_regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (useFetch_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, useFetch_regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, useFetch_regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), useFetch_regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", useFetch_regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), useFetch_regeneratorDefine2(u), useFetch_regeneratorDefine2(u, o, "Generator"), useFetch_regeneratorDefine2(u, n, function () { return this; }), useFetch_regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (useFetch_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function useFetch_regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } useFetch_regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { useFetch_regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, useFetch_regeneratorDefine2(e, r, n, t); }
-function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
+function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
+function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
 function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function useFetch_asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function useFetch_asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { useFetch_asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { useFetch_asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
-function useFetch_slicedToArray(r, e) { return useFetch_arrayWithHoles(r) || useFetch_iterableToArrayLimit(r, e) || useFetch_unsupportedIterableToArray(r, e) || useFetch_nonIterableRest(); }
-function useFetch_nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+/**
+ * Defines the strategy for handling multiple requests during coalescing
+ */
+
+/**
+ * Options for the RequestCoalescer
+ */
+
+/**
+ * Internal state for the coalescer
+ */
+
+/**
+ * RequestCoalescer provides request coalescing mechanisms for batching operations.
+ * All items are processed in a single execution lane regardless of their keys.
+ *
+ * It's particularly useful for handling API requests that arrive in bursts,
+ * such as form field updates or search queries.
+ */
+var RequestCoalescer = /*#__PURE__*/function () {
+  function RequestCoalescer(options) {
+    _classCallCheck(this, RequestCoalescer);
+    _defineProperty(this, "disposed", false);
+    this.options = options;
+    // Initialize state
+    this.state = {
+      userBuffer: [],
+      executionBuffer: [],
+      isExecuting: false,
+      abortPromise: null
+    };
+  }
+
+  /**
+   * Add an item to be processed
+   * @param item The item to add
+   */
+  return _createClass(RequestCoalescer, [{
+    key: "add",
+    value: (function () {
+      var _add = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(item) {
+        var _t;
+        return _regenerator().w(function (_context) {
+          while (1) switch (_context.n) {
+            case 0:
+              if (!this.disposed) {
+                _context.n = 1;
+                break;
+              }
+              console.warn("\u26A0\uFE0F RequestCoalescer.add() called on disposed instance - ignoring");
+              return _context.a(2);
+            case 1:
+              // Add item to user buffer
+              this.state.userBuffer.push(item);
+
+              // Handle different modes
+              _t = this.options.mode;
+              _context.n = _t === "first" ? 2 : _t === "first-strict" ? 4 : _t === "last" ? 6 : _t === "abort" ? 8 : _t === "batch" ? 13 : 15;
+              break;
+            case 2:
+              if (!this.state.isExecuting) {
+                _context.n = 3;
+                break;
+              }
+              return _context.a(2);
+            case 3:
+              // Execute immediately
+              this.executeEffect();
+              return _context.a(3, 15);
+            case 4:
+              if (!this.state.isExecuting) {
+                _context.n = 5;
+                break;
+              }
+              throw new Error("Request coalescer is already executing. Cannot add new items in 'first-strict' mode.");
+            case 5:
+              // Execute immediately
+              this.executeEffect();
+              return _context.a(3, 15);
+            case 6:
+              if (!this.state.isExecuting) {
+                _context.n = 7;
+                break;
+              }
+              console.log("⏳ RequestCoalescer last-mode: waiting for ongoing request to finish");
+              return _context.a(2);
+            case 7:
+              // Clear user buffer except for the last item
+              if (this.state.userBuffer.length > 1) {
+                this.state.userBuffer = [this.state.userBuffer[this.state.userBuffer.length - 1]];
+              }
+              console.log("⏳ RequestCoalescer last-mode: executing last item");
+              this.executeEffect();
+              return _context.a(3, 15);
+            case 8:
+              if (!this.state.isExecuting) {
+                _context.n = 12;
+                break;
+              }
+              if (this.options.onAbort) {
+                console.log("🛑 RequestCoalescer abort-mode: aborting in-flight request and awaiting completion");
+                this.options.onAbort();
+              }
+              if (!this.state.abortPromise) {
+                _context.n = 10;
+                break;
+              }
+              _context.n = 9;
+              return this.state.abortPromise;
+            case 9:
+              _context.n = 11;
+              break;
+            case 10:
+              return _context.a(3, 12);
+            case 11:
+              _context.n = 8;
+              break;
+            case 12:
+              // Clear user buffer except for the last item
+              if (this.state.userBuffer.length > 1) {
+                this.state.userBuffer = [this.state.userBuffer[this.state.userBuffer.length - 1]];
+              }
+              console.log("🛑 RequestCoalescer abort-mode: lane clear, starting last item");
+              this.executeEffect();
+              return _context.a(3, 15);
+            case 13:
+              if (!this.state.isExecuting) {
+                _context.n = 14;
+                break;
+              }
+              return _context.a(2);
+            case 14:
+              // Execute immediately
+              this.executeEffect();
+              return _context.a(3, 15);
+            case 15:
+              return _context.a(2);
+          }
+        }, _callee, this);
+      }));
+      function add(_x) {
+        return _add.apply(this, arguments);
+      }
+      return add;
+    }()
+    /**
+     * Cancel any pending operations
+     */
+    )
+  }, {
+    key: "cancel",
+    value: function cancel() {
+      // Clear user buffer
+      this.state.userBuffer = [];
+    }
+
+    /**
+     * Clean up all resources used by the coalescer
+     */
+  }, {
+    key: "dispose",
+    value: function dispose() {
+      if (this.disposed) {
+        return;
+      }
+      this.disposed = true;
+      this.cancel();
+    }
+
+    /**
+     * Execute the effect with the current buffer
+     */
+  }, {
+    key: "executeEffect",
+    value: (function () {
+      var _executeEffect = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+        var _this = this;
+        var itemsToProcess, combined, _t2, _t3;
+        return _regenerator().w(function (_context2) {
+          while (1) switch (_context2.p = _context2.n) {
+            case 0:
+              if (!(this.state.userBuffer.length === 0)) {
+                _context2.n = 1;
+                break;
+              }
+              return _context2.a(2);
+            case 1:
+              this.state.isExecuting = true;
+
+              // Move items from user buffer to execution buffer
+              this.state.executionBuffer = _toConsumableArray(this.state.userBuffer);
+              this.state.userBuffer = [];
+
+              // Determine which items to process based on mode
+              _t2 = this.options.mode;
+              _context2.n = _t2 === "first" ? 2 : _t2 === "first-strict" ? 2 : _t2 === "last" ? 3 : _t2 === "abort" ? 3 : _t2 === "batch" ? 4 : 4;
+              break;
+            case 2:
+              itemsToProcess = [this.state.executionBuffer[0]];
+              return _context2.a(3, 5);
+            case 3:
+              itemsToProcess = [this.state.executionBuffer[this.state.executionBuffer.length - 1]];
+              return _context2.a(3, 5);
+            case 4:
+              itemsToProcess = _toConsumableArray(this.state.executionBuffer);
+              return _context2.a(3, 5);
+            case 5:
+              _context2.p = 5;
+              if (!(this.options.combine && itemsToProcess.length > 1)) {
+                _context2.n = 7;
+                break;
+              }
+              combined = this.options.combine(itemsToProcess);
+              _context2.n = 6;
+              return this.options.effect([combined]);
+            case 6:
+              _context2.n = 8;
+              break;
+            case 7:
+              _context2.n = 8;
+              return this.options.effect(itemsToProcess);
+            case 8:
+              _context2.n = 10;
+              break;
+            case 9:
+              _context2.p = 9;
+              _t3 = _context2.v;
+              console.error("Error executing effect:", _t3);
+            case 10:
+              _context2.p = 10;
+              // Clear execution buffer after processing
+              this.state.executionBuffer = [];
+
+              // For batch mode, if new items arrived during execution, process them
+              if (this.options.mode === "last" && this.state.userBuffer.length > 0) {
+                // For last mode, if new items arrived during execution, process the last one
+                console.log("⏳ RequestCoalescer last-mode: ongoing request finished, processing last item");
+                // Clear user buffer except for the last item
+                if (this.state.userBuffer.length > 1) {
+                  this.state.userBuffer = [this.state.userBuffer[this.state.userBuffer.length - 1]];
+                }
+                queueMicrotask(function () {
+                  return _this.executeEffect();
+                });
+              } else if (this.options.mode === "batch" && this.state.userBuffer.length > 0) {
+                queueMicrotask(function () {
+                  return _this.executeEffect();
+                });
+              } else {
+                this.state.isExecuting = false;
+              }
+              return _context2.f(10);
+            case 11:
+              return _context2.a(2);
+          }
+        }, _callee2, this, [[5, 9, 10, 11]]);
+      }));
+      function executeEffect() {
+        return _executeEffect.apply(this, arguments);
+      }
+      return executeEffect;
+    }())
+  }]);
+}();
+;// ./app/hooks/useFetch.tsx
+function useFetch_typeof(o) { "@babel/helpers - typeof"; return useFetch_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, useFetch_typeof(o); }
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || useFetch_unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function useFetch_unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return useFetch_arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? useFetch_arrayLikeToArray(r, a) : void 0; } }
 function useFetch_arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
-function useFetch_iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
-function useFetch_arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+function useFetch_regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return useFetch_regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (useFetch_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, useFetch_regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, useFetch_regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), useFetch_regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", useFetch_regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), useFetch_regeneratorDefine2(u), useFetch_regeneratorDefine2(u, o, "Generator"), useFetch_regeneratorDefine2(u, n, function () { return this; }), useFetch_regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (useFetch_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function useFetch_regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } useFetch_regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { useFetch_regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, useFetch_regeneratorDefine2(e, r, n, t); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { useFetch_defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function useFetch_defineProperty(e, r, t) { return (r = useFetch_toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function useFetch_toPropertyKey(t) { var i = useFetch_toPrimitive(t, "string"); return "symbol" == useFetch_typeof(i) ? i : i + ""; }
+function useFetch_toPrimitive(t, r) { if ("object" != useFetch_typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != useFetch_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function useFetch_asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function useFetch_asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { useFetch_asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { useFetch_asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 
 
 
@@ -805,103 +1003,223 @@ function useFetch(paramsCallback, watchList) {
     fetchAuth = _useContext.fetchAuth;
   var _useBetterSnackbar = useBetterSnackbar(),
     errorSnack = _useBetterSnackbar.errorSnack;
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  var params = (0,external_react_.useMemo)(function () {
-    return paramsCallback();
-  }, watchList);
+  var paramsRef = (0,external_react_.useRef)(paramsCallback());
+  // Update ref on every render to capture latest params
+  paramsRef.current = paramsCallback();
   var abortControllerRef = (0,external_react_.useRef)(null);
+  var coalescerRef = (0,external_react_.useRef)(null);
+
+  // Create coalescer only once
+  (0,external_react_.useEffect)(function () {
+    if (!coalescerRef.current) {
+      var mode = paramsRef.current.mode || "last";
+      if (mode === "batch" && !paramsRef.current.combine) {
+        throw new Error("combine function required when mode is 'batch'");
+      }
+
+      // Capture values at creation time
+      var capturedFetchAuth = fetchAuth;
+      var capturedErrorSnack = errorSnack;
+      var capturedCombine = paramsRef.current.combine;
+      coalescerRef.current = new RequestCoalescer({
+        mode: mode,
+        combine: capturedCombine,
+        onAbort: function onAbort() {
+          console.log("🛑 RequestCoalescer onAbort callback triggered");
+          // Abort the current request
+          if (abortControllerRef.current) {
+            console.log("🛑 Aborting request via coalescer onAbort callback");
+            abortControllerRef.current.abort();
+          } else {
+            console.log("🛑 No AbortController to abort in coalescer onAbort");
+          }
+        },
+        effect: function () {
+          var _effect = useFetch_asyncToGenerator(/*#__PURE__*/useFetch_regenerator().m(function _callee(items) {
+            var itemToProcess, abortResolve, abortPromise, _itemToProcess$auth, auth, f, options, data, _t, _t2, _t3;
+            return useFetch_regenerator().w(function (_context) {
+              while (1) switch (_context.p = _context.n) {
+                case 0:
+                  setLoading(true);
+                  setError(undefined);
+                  _context.p = 1;
+                  // For batch mode, we expect a single combined item
+                  // For other modes, we process the items according to the mode
+                  itemToProcess = items[0]; // Get the first item to process
+                  _t = itemToProcess.validate;
+                  if (!_t) {
+                    _context.n = 3;
+                    break;
+                  }
+                  _context.n = 2;
+                  return itemToProcess.validate();
+                case 2:
+                  _t = !_context.v;
+                case 3:
+                  if (!_t) {
+                    _context.n = 4;
+                    break;
+                  }
+                  return _context.a(2);
+                case 4:
+                  // Create abort promise for tracking cancellation
+                  abortResolve = null;
+                  abortPromise = new Promise(function (resolve) {
+                    abortResolve = resolve;
+                  }); // Store abort promise in coalescer state
+                  if (coalescerRef.current) {
+                    coalescerRef.current.state.abortPromise = abortPromise;
+                  }
+
+                  // Create new AbortController for this request
+                  abortControllerRef.current = new AbortController();
+                  _context.p = 5;
+                  auth = (_itemToProcess$auth = itemToProcess.auth) !== null && _itemToProcess$auth !== void 0 ? _itemToProcess$auth : true;
+                  f = auth ? capturedFetchAuth : client.fetchJSON;
+                  if (f) {
+                    _context.n = 6;
+                    break;
+                  }
+                  throw new Error("No fetchAuth function provided.");
+                case 6:
+                  // Merge options with AbortSignal
+                  options = _objectSpread(_objectSpread({}, itemToProcess.options), {}, {
+                    signal: abortControllerRef.current.signal
+                  });
+                  _context.n = 7;
+                  return f(itemToProcess.url, itemToProcess.data, options);
+                case 7:
+                  data = _context.v;
+                  if (!itemToProcess.ok) {
+                    _context.n = 8;
+                    break;
+                  }
+                  _context.n = 8;
+                  return itemToProcess.ok(data);
+                case 8:
+                  return _context.a(2, data);
+                case 9:
+                  _context.p = 9;
+                  _t2 = _context.v;
+                  if (!(_t2 instanceof Error && _t2.name === "AbortError")) {
+                    _context.n = 10;
+                    break;
+                  }
+                  return _context.a(2);
+                case 10:
+                  if (!itemToProcess.error) {
+                    _context.n = 12;
+                    break;
+                  }
+                  _context.n = 11;
+                  return itemToProcess.error(_t2);
+                case 11:
+                  _context.n = 13;
+                  break;
+                case 12:
+                  capturedErrorSnack(_t2);
+                case 13:
+                  throw _t2;
+                case 14:
+                  _context.p = 14;
+                  console.log("🛑 Cleaning up AbortController in finally block");
+                  abortControllerRef.current = null;
+                  if (abortResolve) abortResolve();
+                  return _context.f(14);
+                case 15:
+                  _context.n = 17;
+                  break;
+                case 16:
+                  _context.p = 16;
+                  _t3 = _context.v;
+                  if (_t3 instanceof Error && _t3.name !== "AbortError") {
+                    setError(_t3 instanceof Error ? _t3 : new Error(String(_t3)));
+                  }
+                  throw _t3;
+                case 17:
+                  _context.p = 17;
+                  setLoading(false);
+                  return _context.f(17);
+                case 18:
+                  return _context.a(2);
+              }
+            }, _callee, null, [[5, 9, 14, 15], [1, 16, 17, 18]]);
+          }));
+          function effect(_x) {
+            return _effect.apply(this, arguments);
+          }
+          return effect;
+        }()
+      });
+    }
+
+    // Only dispose on component unmount
+    return function () {
+      if (coalescerRef.current) {
+        coalescerRef.current.dispose();
+        coalescerRef.current = null;
+      }
+    };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   var cancel = function cancel() {
+    console.log("🛑 useFetch.cancel() called");
     if (abortControllerRef.current) {
+      console.log("🛑 Aborting current request via AbortController");
       abortControllerRef.current.abort();
       abortControllerRef.current = null;
+    } else {
+      console.log("🛑 No active AbortController to abort");
     }
+    console.log("🛑 useFetch.cancel() completed");
   };
-  var _useLoadingCallback = useLoadingCallback(/*#__PURE__*/useFetch_asyncToGenerator(/*#__PURE__*/useFetch_regenerator().m(function _callee() {
-      var _params$auth, auth, f, options, data, _t, _t2;
-      return useFetch_regenerator().w(function (_context) {
-        while (1) switch (_context.p = _context.n) {
-          case 0:
-            _t = params.validate;
-            if (!_t) {
-              _context.n = 2;
-              break;
-            }
-            _context.n = 1;
-            return params.validate();
-          case 1:
-            _t = !_context.v;
-          case 2:
-            if (!_t) {
-              _context.n = 3;
-              break;
-            }
-            return _context.a(2);
-          case 3:
-            // Cancel any existing request
-            cancel();
-
-            // Create new AbortController for this request
-            abortControllerRef.current = new AbortController();
-            _context.p = 4;
-            auth = (_params$auth = params.auth) !== null && _params$auth !== void 0 ? _params$auth : true;
-            f = auth ? fetchAuth : client.fetchJSON;
-            if (f) {
-              _context.n = 5;
-              break;
-            }
-            throw new Error("No fetchAuth function provided.");
-          case 5:
-            // Merge options with AbortSignal
-            options = _objectSpread(_objectSpread({}, params.options), {}, {
-              signal: abortControllerRef.current.signal
-            });
-            _context.n = 6;
-            return f(params.url, params.data, options);
-          case 6:
-            data = _context.v;
-            if (!params.ok) {
-              _context.n = 7;
-              break;
-            }
-            _context.n = 7;
-            return params.ok(data);
-          case 7:
-            return _context.a(2, data);
-          case 8:
-            _context.p = 8;
-            _t2 = _context.v;
-            if (!(_t2 instanceof Error && _t2.name === "AbortError")) {
-              _context.n = 9;
-              break;
-            }
-            return _context.a(2);
-          case 9:
-            if (!params.error) {
-              _context.n = 11;
-              break;
-            }
-            _context.n = 10;
-            return params.error(_t2);
-          case 10:
-            _context.n = 12;
+  var _useState = (0,external_react_.useState)(false),
+    _useState2 = _slicedToArray(_useState, 2),
+    loading = _useState2[0],
+    setLoading = _useState2[1];
+  var _useState3 = (0,external_react_.useState)(undefined),
+    _useState4 = _slicedToArray(_useState3, 2),
+    error = _useState4[0],
+    setError = _useState4[1];
+  var fetchCallback = (0,external_react_.useCallback)(/*#__PURE__*/useFetch_asyncToGenerator(/*#__PURE__*/useFetch_regenerator().m(function _callee2() {
+    var currentParams, _t4;
+    return useFetch_regenerator().w(function (_context2) {
+      while (1) switch (_context2.p = _context2.n) {
+        case 0:
+          if (coalescerRef.current) {
+            _context2.n = 1;
             break;
-          case 11:
-            errorSnack(_t2);
-          case 12:
-            _context.p = 12;
-            abortControllerRef.current = null;
-            return _context.f(12);
-          case 13:
-            return _context.a(2);
-        }
-      }, _callee, null, [[4, 8, 12, 13]]);
-    })), // eslint-disable-next-line react-hooks/exhaustive-deps
-    [errorSnack].concat(useFetch_toConsumableArray(watchList))),
-    _useLoadingCallback2 = useFetch_slicedToArray(_useLoadingCallback, 3),
-    fetchCallback = _useLoadingCallback2[0],
-    loading = _useLoadingCallback2[1],
-    error = _useLoadingCallback2[2];
+          }
+          throw new Error("RequestCoalescer not initialized");
+        case 1:
+          currentParams = paramsRef.current;
+          _context2.p = 2;
+          _context2.n = 3;
+          return coalescerRef.current.add(currentParams);
+        case 3:
+          _context2.n = 7;
+          break;
+        case 4:
+          _context2.p = 4;
+          _t4 = _context2.v;
+          // Handle first-strict mode errors
+          setError(_t4 instanceof Error ? _t4 : new Error(String(_t4)));
+          if (!currentParams.error) {
+            _context2.n = 6;
+            break;
+          }
+          _context2.n = 5;
+          return currentParams.error(_t4);
+        case 5:
+          _context2.n = 7;
+          break;
+        case 6:
+          errorSnack(_t4);
+        case 7:
+          return _context2.a(2);
+      }
+    }, _callee2, null, [[2, 4]]);
+  })), [errorSnack]);
   return [fetchCallback, loading, error, cancel];
 }
 function UseFetchProvider(_ref2) {
@@ -912,6 +1230,86 @@ function UseFetchProvider(_ref2) {
       fetchAuth: fetchAuth
     }
   }, children);
+}
+;// ./app/hooks/useLoadingCallback.tsx
+function useLoadingCallback_toConsumableArray(r) { return useLoadingCallback_arrayWithoutHoles(r) || useLoadingCallback_iterableToArray(r) || useLoadingCallback_unsupportedIterableToArray(r) || useLoadingCallback_nonIterableSpread(); }
+function useLoadingCallback_nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function useLoadingCallback_iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function useLoadingCallback_arrayWithoutHoles(r) { if (Array.isArray(r)) return useLoadingCallback_arrayLikeToArray(r); }
+function useLoadingCallback_regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return useLoadingCallback_regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (useLoadingCallback_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, useLoadingCallback_regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, useLoadingCallback_regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), useLoadingCallback_regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", useLoadingCallback_regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), useLoadingCallback_regeneratorDefine2(u), useLoadingCallback_regeneratorDefine2(u, o, "Generator"), useLoadingCallback_regeneratorDefine2(u, n, function () { return this; }), useLoadingCallback_regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (useLoadingCallback_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function useLoadingCallback_regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } useLoadingCallback_regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { useLoadingCallback_regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, useLoadingCallback_regeneratorDefine2(e, r, n, t); }
+function useLoadingCallback_asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function useLoadingCallback_asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { useLoadingCallback_asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { useLoadingCallback_asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function useLoadingCallback_slicedToArray(r, e) { return useLoadingCallback_arrayWithHoles(r) || useLoadingCallback_iterableToArrayLimit(r, e) || useLoadingCallback_unsupportedIterableToArray(r, e) || useLoadingCallback_nonIterableRest(); }
+function useLoadingCallback_nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function useLoadingCallback_unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return useLoadingCallback_arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? useLoadingCallback_arrayLikeToArray(r, a) : void 0; } }
+function useLoadingCallback_arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function useLoadingCallback_iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function useLoadingCallback_arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+
+
+var DEV = "production" !== "production";
+
+/**
+ * A wrapper for `useCallback` that provides a loading state and error Snackbars.
+ *
+ * @param callback - The callback function.
+ * @param watchList - Watch list like with regular useCallback.
+ *
+ * @returns A hook containing: wrapped callback, loading state, and Error.
+ */
+function useLoadingCallback(callback, watchList) {
+  if (DEV) {
+    if (typeof callback !== "function") {
+      throw new TypeError("useLoadingCallback(callback, watchList) : 'callback' must be a function.");
+    }
+    if (!Array.isArray(watchList)) {
+      throw new TypeError("useLoadingCallback(callback, watchList) : 'watchList' must be an array.");
+    }
+  }
+  var _useBetterSnackbar = useBetterSnackbar(),
+    errorSnack = _useBetterSnackbar.errorSnack;
+  var _useState = (0,external_react_.useState)(false),
+    _useState2 = useLoadingCallback_slicedToArray(_useState, 2),
+    loading = _useState2[0],
+    setLoading = _useState2[1];
+  var _useState3 = (0,external_react_.useState)(null),
+    _useState4 = useLoadingCallback_slicedToArray(_useState3, 2),
+    error = _useState4[0],
+    setError = _useState4[1];
+  var wrappedCallback = (0,external_react_.useCallback)(/*#__PURE__*/useLoadingCallback_asyncToGenerator(/*#__PURE__*/useLoadingCallback_regenerator().m(function _callee() {
+    var result,
+      errorInstance,
+      _args = arguments,
+      _t;
+    return useLoadingCallback_regenerator().w(function (_context) {
+      while (1) switch (_context.p = _context.n) {
+        case 0:
+          setLoading(true);
+          _context.p = 1;
+          _context.n = 2;
+          return callback.apply(void 0, _args);
+        case 2:
+          result = _context.v;
+          setError(null);
+          return _context.a(2, result);
+        case 3:
+          _context.p = 3;
+          _t = _context.v;
+          errorInstance = _t instanceof Error ? _t : new Error(String(_t));
+          errorSnack(errorInstance);
+          setError(errorInstance);
+        case 4:
+          _context.p = 4;
+          setLoading(false);
+          return _context.f(4);
+        case 5:
+          return _context.a(2);
+      }
+    }, _callee, null, [[1, 3, 4, 5]]);
+  })), // eslint-disable-next-line react-hooks/exhaustive-deps
+  [errorSnack].concat(useLoadingCallback_toConsumableArray(watchList)));
+  return [wrappedCallback, loading, error];
 }
 ;// ./app/hooks/index.ts
 
@@ -1114,7 +1512,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   hooks: () => (/* reexport module object */ _hooks__WEBPACK_IMPORTED_MODULE_1__)
 /* harmony export */ });
 /* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(728);
-/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(496);
+/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(422);
 
 
 
