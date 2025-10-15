@@ -70,7 +70,7 @@ export class RequestCoalescer<TItem> {
     // Add item to user buffer
     this.state.userBuffer.push(item);
     console.log(
-      `📥 [RequestCoalescer] Added item to buffer (mode: ${this.options.mode}, buffer size: ${this.state.userBuffer.length})`,
+      `📥 [useFetch/Coalescer] Added item to buffer (mode: ${this.options.mode}, buffer size: ${this.state.userBuffer.length})`,
     );
 
     // Handle different modes
@@ -79,13 +79,13 @@ export class RequestCoalescer<TItem> {
         // If already executing, ignore new calls
         if (this.state.isExecuting) {
           console.log(
-            `🚫 [RequestCoalescer] Dropping request in 'first' mode (already executing)`,
+            `🚫 [useFetch/Coalescer] Dropping request in 'first' mode (already executing)`,
           );
           return;
         }
         // Execute immediately
         console.log(
-          `▶️ [RequestCoalescer] Executing immediately in 'first' mode`,
+          `▶️ [useFetch/Coalescer] Executing immediately in 'first' mode`,
         );
         this.executeEffect();
         break;
@@ -94,7 +94,7 @@ export class RequestCoalescer<TItem> {
         // If already executing, throw error
         if (this.state.isExecuting) {
           console.log(
-            `💥 [RequestCoalescer] Throwing error in 'first-strict' mode (already executing)`,
+            `💥 [useFetch/Coalescer] Throwing error in 'first-strict' mode (already executing)`,
           );
           throw new Error(
             "Request coalescer is already executing. Cannot add new items in 'first-strict' mode.",
@@ -102,7 +102,7 @@ export class RequestCoalescer<TItem> {
         }
         // Execute immediately
         console.log(
-          `▶️ [RequestCoalescer] Executing immediately in 'first-strict' mode`,
+          `▶️ [useFetch/Coalescer] Executing immediately in 'first-strict' mode`,
         );
         this.executeEffect();
         break;
@@ -111,14 +111,22 @@ export class RequestCoalescer<TItem> {
         // Wait for previous request to abort before starting new one
         if (this.state.isExecuting && this.state.abortPromise) {
           console.log(
-            `⏳ [RequestCoalescer] Waiting for previous request to abort in 'last' mode`,
+            `⏳ [useFetch/Coalescer] Waiting for previous request to abort in 'last' mode`,
           );
           await this.state.abortPromise;
+
+          // After waiting, check if buffer is empty (another waiting request already handled it)
+          if (this.state.userBuffer.length === 0) {
+            console.log(
+              `⏭️ [useFetch/Coalescer] Skipping execution - buffer already processed by another waiting request`,
+            );
+            return; // Exit early, another request already processing
+          }
         }
         // Clear user buffer except for the last item
         if (this.state.userBuffer.length > 1) {
           console.log(
-            `🗑️ [RequestCoalescer] Dropping ${
+            `🗑️ [useFetch/Coalescer] Dropping ${
               this.state.userBuffer.length - 1
             } items in 'last' mode, keeping only the latest`,
           );
@@ -126,7 +134,7 @@ export class RequestCoalescer<TItem> {
             this.state.userBuffer[this.state.userBuffer.length - 1],
           ];
         }
-        console.log(`▶️ [RequestCoalescer] Executing in 'last' mode`);
+        console.log(`▶️ [useFetch/Coalescer] Executing in 'last' mode`);
         this.executeEffect();
         break;
 
@@ -134,13 +142,13 @@ export class RequestCoalescer<TItem> {
         // If already executing, accumulate items
         if (this.state.isExecuting) {
           console.log(
-            `📦 [RequestCoalescer] Queuing item for batch processing (already executing)`,
+            `📦 [useFetch/Coalescer] Queuing item for batch processing (already executing)`,
           );
           return;
         }
         // Execute immediately
         console.log(
-          `▶️ [RequestCoalescer] Executing immediately in 'batch' mode`,
+          `▶️ [useFetch/Coalescer] Executing immediately in 'batch' mode`,
         );
         this.executeEffect();
         break;
@@ -152,7 +160,7 @@ export class RequestCoalescer<TItem> {
    */
   public cancel(): void {
     console.log(
-      `🚫 [RequestCoalescer] Canceling ${this.state.userBuffer.length} pending items`,
+      `🚫 [useFetch/Coalescer] Canceling ${this.state.userBuffer.length} pending items`,
     );
     // Clear user buffer
     this.state.userBuffer = [];
@@ -169,7 +177,7 @@ export class RequestCoalescer<TItem> {
     }
 
     console.log(
-      `💀 [RequestCoalescer] Disposing coalescer (mode: ${this.options.mode})`,
+      `💀 [useFetch/Coalescer] Disposing coalescer (mode: ${this.options.mode})`,
     );
     this.disposed = true;
     this.cancel();
@@ -181,13 +189,13 @@ export class RequestCoalescer<TItem> {
   private async executeEffect(): Promise<void> {
     if (this.state.userBuffer.length === 0) {
       console.log(
-        `⚠️ [RequestCoalescer] executeEffect called with empty buffer`,
+        `⚠️ [useFetch/Coalescer] executeEffect called with empty buffer`,
       );
       return;
     }
 
     console.log(
-      `🎬 [RequestCoalescer] Starting effect execution with ${this.state.userBuffer.length} items`,
+      `🎬 [useFetch/Coalescer] Starting effect execution with ${this.state.userBuffer.length} items`,
     );
     this.state.isExecuting = true;
 
@@ -202,7 +210,7 @@ export class RequestCoalescer<TItem> {
       case "first-strict":
         itemsToProcess = [this.state.executionBuffer[0]];
         console.log(
-          `🎯 [RequestCoalescer] Processing first item only (${itemsToProcess.length}/${this.state.executionBuffer.length} items)`,
+          `🎯 [useFetch/Coalescer] Processing first item only (${itemsToProcess.length}/${this.state.executionBuffer.length} items)`,
         );
         break;
       case "last":
@@ -210,14 +218,14 @@ export class RequestCoalescer<TItem> {
           this.state.executionBuffer[this.state.executionBuffer.length - 1],
         ];
         console.log(
-          `🎯 [RequestCoalescer] Processing last item only (${itemsToProcess.length}/${this.state.executionBuffer.length} items)`,
+          `🎯 [useFetch/Coalescer] Processing last item only (${itemsToProcess.length}/${this.state.executionBuffer.length} items)`,
         );
         break;
       case "batch":
       default:
         itemsToProcess = [...this.state.executionBuffer];
         console.log(
-          `🎯 [RequestCoalescer] Processing all items in batch (${itemsToProcess.length} items)`,
+          `🎯 [useFetch/Coalescer] Processing all items in batch (${itemsToProcess.length} items)`,
         );
         break;
     }
@@ -226,7 +234,7 @@ export class RequestCoalescer<TItem> {
       // If combine function is provided and we have multiple items, use it
       if (this.options.combine && itemsToProcess.length > 1) {
         console.log(
-          `🔗 [RequestCoalescer] Combining ${itemsToProcess.length} items before processing`,
+          `🔗 [useFetch/Coalescer] Combining ${itemsToProcess.length} items before processing`,
         );
         const combined = this.options.combine(itemsToProcess);
         await this.options.effect([combined]);
@@ -234,7 +242,7 @@ export class RequestCoalescer<TItem> {
         await this.options.effect(itemsToProcess);
       }
     } catch (error) {
-      console.error("❌ [RequestCoalescer] Error executing effect:", error);
+      console.error("❌ [useFetch/Coalescer] Error executing effect:", error);
     } finally {
       // Clear execution buffer after processing
       this.state.executionBuffer = [];
@@ -242,12 +250,12 @@ export class RequestCoalescer<TItem> {
       // For batch mode, if new items arrived during execution, process them
       if (this.options.mode === "batch" && this.state.userBuffer.length > 0) {
         console.log(
-          `📦 [RequestCoalescer] Scheduling next batch (${this.state.userBuffer.length} new items)`,
+          `📦 [useFetch/Coalescer] Scheduling next batch (${this.state.userBuffer.length} new items)`,
         );
         // Schedule next batch on next tick
         queueMicrotask(() => this.executeEffect());
       } else {
-        console.log(`🏁 [RequestCoalescer] Effect execution completed`);
+        console.log(`🏁 [useFetch/Coalescer] Effect execution completed`);
         this.state.isExecuting = false;
       }
     }

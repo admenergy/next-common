@@ -926,66 +926,73 @@ var RequestCoalescer = /*#__PURE__*/function () {
             case 1:
               // Add item to user buffer
               this.state.userBuffer.push(item);
-              console.log("\uD83D\uDCE5 [RequestCoalescer] Added item to buffer (mode: ".concat(this.options.mode, ", buffer size: ").concat(this.state.userBuffer.length, ")"));
+              console.log("\uD83D\uDCE5 [useFetch/Coalescer] Added item to buffer (mode: ".concat(this.options.mode, ", buffer size: ").concat(this.state.userBuffer.length, ")"));
 
               // Handle different modes
               _t = this.options.mode;
-              _context.n = _t === "first" ? 2 : _t === "first-strict" ? 4 : _t === "last" ? 6 : _t === "batch" ? 8 : 10;
+              _context.n = _t === "first" ? 2 : _t === "first-strict" ? 4 : _t === "last" ? 6 : _t === "batch" ? 9 : 11;
               break;
             case 2:
               if (!this.state.isExecuting) {
                 _context.n = 3;
                 break;
               }
-              console.log("\uD83D\uDEAB [RequestCoalescer] Dropping request in 'first' mode (already executing)");
+              console.log("\uD83D\uDEAB [useFetch/Coalescer] Dropping request in 'first' mode (already executing)");
               return _context.a(2);
             case 3:
               // Execute immediately
-              console.log("\u25B6\uFE0F [RequestCoalescer] Executing immediately in 'first' mode");
+              console.log("\u25B6\uFE0F [useFetch/Coalescer] Executing immediately in 'first' mode");
               this.executeEffect();
-              return _context.a(3, 10);
+              return _context.a(3, 11);
             case 4:
               if (!this.state.isExecuting) {
                 _context.n = 5;
                 break;
               }
-              console.log("\uD83D\uDCA5 [RequestCoalescer] Throwing error in 'first-strict' mode (already executing)");
+              console.log("\uD83D\uDCA5 [useFetch/Coalescer] Throwing error in 'first-strict' mode (already executing)");
               throw new Error("Request coalescer is already executing. Cannot add new items in 'first-strict' mode.");
             case 5:
               // Execute immediately
-              console.log("\u25B6\uFE0F [RequestCoalescer] Executing immediately in 'first-strict' mode");
+              console.log("\u25B6\uFE0F [useFetch/Coalescer] Executing immediately in 'first-strict' mode");
               this.executeEffect();
-              return _context.a(3, 10);
+              return _context.a(3, 11);
             case 6:
               if (!(this.state.isExecuting && this.state.abortPromise)) {
-                _context.n = 7;
+                _context.n = 8;
                 break;
               }
-              console.log("\u23F3 [RequestCoalescer] Waiting for previous request to abort in 'last' mode");
+              console.log("\u23F3 [useFetch/Coalescer] Waiting for previous request to abort in 'last' mode");
               _context.n = 7;
               return this.state.abortPromise;
             case 7:
-              // Clear user buffer except for the last item
-              if (this.state.userBuffer.length > 1) {
-                console.log("\uD83D\uDDD1\uFE0F [RequestCoalescer] Dropping ".concat(this.state.userBuffer.length - 1, " items in 'last' mode, keeping only the latest"));
-                this.state.userBuffer = [this.state.userBuffer[this.state.userBuffer.length - 1]];
-              }
-              console.log("\u25B6\uFE0F [RequestCoalescer] Executing in 'last' mode");
-              this.executeEffect();
-              return _context.a(3, 10);
-            case 8:
-              if (!this.state.isExecuting) {
-                _context.n = 9;
+              if (!(this.state.userBuffer.length === 0)) {
+                _context.n = 8;
                 break;
               }
-              console.log("\uD83D\uDCE6 [RequestCoalescer] Queuing item for batch processing (already executing)");
+              console.log("\u23ED\uFE0F [useFetch/Coalescer] Skipping execution - buffer already processed by another waiting request");
               return _context.a(2);
-            case 9:
-              // Execute immediately
-              console.log("\u25B6\uFE0F [RequestCoalescer] Executing immediately in 'batch' mode");
+            case 8:
+              // Clear user buffer except for the last item
+              if (this.state.userBuffer.length > 1) {
+                console.log("\uD83D\uDDD1\uFE0F [useFetch/Coalescer] Dropping ".concat(this.state.userBuffer.length - 1, " items in 'last' mode, keeping only the latest"));
+                this.state.userBuffer = [this.state.userBuffer[this.state.userBuffer.length - 1]];
+              }
+              console.log("\u25B6\uFE0F [useFetch/Coalescer] Executing in 'last' mode");
               this.executeEffect();
-              return _context.a(3, 10);
+              return _context.a(3, 11);
+            case 9:
+              if (!this.state.isExecuting) {
+                _context.n = 10;
+                break;
+              }
+              console.log("\uD83D\uDCE6 [useFetch/Coalescer] Queuing item for batch processing (already executing)");
+              return _context.a(2);
             case 10:
+              // Execute immediately
+              console.log("\u25B6\uFE0F [useFetch/Coalescer] Executing immediately in 'batch' mode");
+              this.executeEffect();
+              return _context.a(3, 11);
+            case 11:
               return _context.a(2);
           }
         }, _callee, this);
@@ -1002,7 +1009,7 @@ var RequestCoalescer = /*#__PURE__*/function () {
   }, {
     key: "cancel",
     value: function cancel() {
-      console.log("\uD83D\uDEAB [RequestCoalescer] Canceling ".concat(this.state.userBuffer.length, " pending items"));
+      console.log("\uD83D\uDEAB [useFetch/Coalescer] Canceling ".concat(this.state.userBuffer.length, " pending items"));
       // Clear user buffer
       this.state.userBuffer = [];
       // Note: Actual request cancellation is handled by abort controller
@@ -1018,7 +1025,7 @@ var RequestCoalescer = /*#__PURE__*/function () {
       if (this.disposed) {
         return;
       }
-      console.log("\uD83D\uDC80 [RequestCoalescer] Disposing coalescer (mode: ".concat(this.options.mode, ")"));
+      console.log("\uD83D\uDC80 [useFetch/Coalescer] Disposing coalescer (mode: ".concat(this.options.mode, ")"));
       this.disposed = true;
       this.cancel();
     }
@@ -1039,10 +1046,10 @@ var RequestCoalescer = /*#__PURE__*/function () {
                 _context2.n = 1;
                 break;
               }
-              console.log("\u26A0\uFE0F [RequestCoalescer] executeEffect called with empty buffer");
+              console.log("\u26A0\uFE0F [useFetch/Coalescer] executeEffect called with empty buffer");
               return _context2.a(2);
             case 1:
-              console.log("\uD83C\uDFAC [RequestCoalescer] Starting effect execution with ".concat(this.state.userBuffer.length, " items"));
+              console.log("\uD83C\uDFAC [useFetch/Coalescer] Starting effect execution with ".concat(this.state.userBuffer.length, " items"));
               this.state.isExecuting = true;
 
               // Move items from user buffer to execution buffer
@@ -1055,15 +1062,15 @@ var RequestCoalescer = /*#__PURE__*/function () {
               break;
             case 2:
               itemsToProcess = [this.state.executionBuffer[0]];
-              console.log("\uD83C\uDFAF [RequestCoalescer] Processing first item only (".concat(itemsToProcess.length, "/").concat(this.state.executionBuffer.length, " items)"));
+              console.log("\uD83C\uDFAF [useFetch/Coalescer] Processing first item only (".concat(itemsToProcess.length, "/").concat(this.state.executionBuffer.length, " items)"));
               return _context2.a(3, 5);
             case 3:
               itemsToProcess = [this.state.executionBuffer[this.state.executionBuffer.length - 1]];
-              console.log("\uD83C\uDFAF [RequestCoalescer] Processing last item only (".concat(itemsToProcess.length, "/").concat(this.state.executionBuffer.length, " items)"));
+              console.log("\uD83C\uDFAF [useFetch/Coalescer] Processing last item only (".concat(itemsToProcess.length, "/").concat(this.state.executionBuffer.length, " items)"));
               return _context2.a(3, 5);
             case 4:
               itemsToProcess = _toConsumableArray(this.state.executionBuffer);
-              console.log("\uD83C\uDFAF [RequestCoalescer] Processing all items in batch (".concat(itemsToProcess.length, " items)"));
+              console.log("\uD83C\uDFAF [useFetch/Coalescer] Processing all items in batch (".concat(itemsToProcess.length, " items)"));
               return _context2.a(3, 5);
             case 5:
               _context2.p = 5;
@@ -1071,7 +1078,7 @@ var RequestCoalescer = /*#__PURE__*/function () {
                 _context2.n = 7;
                 break;
               }
-              console.log("\uD83D\uDD17 [RequestCoalescer] Combining ".concat(itemsToProcess.length, " items before processing"));
+              console.log("\uD83D\uDD17 [useFetch/Coalescer] Combining ".concat(itemsToProcess.length, " items before processing"));
               combined = this.options.combine(itemsToProcess);
               _context2.n = 6;
               return this.options.effect([combined]);
@@ -1087,7 +1094,7 @@ var RequestCoalescer = /*#__PURE__*/function () {
             case 9:
               _context2.p = 9;
               _t3 = _context2.v;
-              console.error("❌ [RequestCoalescer] Error executing effect:", _t3);
+              console.error("❌ [useFetch/Coalescer] Error executing effect:", _t3);
             case 10:
               _context2.p = 10;
               // Clear execution buffer after processing
@@ -1095,13 +1102,13 @@ var RequestCoalescer = /*#__PURE__*/function () {
 
               // For batch mode, if new items arrived during execution, process them
               if (this.options.mode === "batch" && this.state.userBuffer.length > 0) {
-                console.log("\uD83D\uDCE6 [RequestCoalescer] Scheduling next batch (".concat(this.state.userBuffer.length, " new items)"));
+                console.log("\uD83D\uDCE6 [useFetch/Coalescer] Scheduling next batch (".concat(this.state.userBuffer.length, " new items)"));
                 // Schedule next batch on next tick
                 queueMicrotask(function () {
                   return _this.executeEffect();
                 });
               } else {
-                console.log("\uD83C\uDFC1 [RequestCoalescer] Effect execution completed");
+                console.log("\uD83C\uDFC1 [useFetch/Coalescer] Effect execution completed");
                 this.state.isExecuting = false;
               }
               return _context2.f(10);
@@ -1196,7 +1203,7 @@ function useFetch(paramsCallback, watchList) {
             return useFetch_regenerator().w(function (_context) {
               while (1) switch (_context.p = _context.n) {
                 case 0:
-                  console.log("\uD83D\uDE80 [useFetch] Processing ".concat(items.length, " item(s) for: ").concat((_items$ = items[0]) === null || _items$ === void 0 ? void 0 : _items$.url), {
+                  console.log("\uD83D\uDE80 [useFetch/Hook] Processing ".concat(items.length, " item(s) for: ").concat((_items$ = items[0]) === null || _items$ === void 0 ? void 0 : _items$.url), {
                     mode: mode,
                     itemsCount: items.length,
                     urls: items.map(function (item) {
@@ -1223,7 +1230,7 @@ function useFetch(paramsCallback, watchList) {
                     _context.n = 4;
                     break;
                   }
-                  console.log("\u26A0\uFE0F [useFetch] Validation failed for: ".concat(itemToProcess.url));
+                  console.log("\u26A0\uFE0F [useFetch/Hook] Validation failed for: ".concat(itemToProcess.url));
                   // Validation check failed
                   return _context.a(2);
                 case 4:
@@ -1241,7 +1248,7 @@ function useFetch(paramsCallback, watchList) {
                     _context.n = 5;
                     break;
                   }
-                  console.log("\uD83D\uDED1 [useFetch] Aborting previous request for: ".concat(itemToProcess.url));
+                  console.log("\uD83D\uDED1 [useFetch/Hook] Aborting previous request for: ".concat(itemToProcess.url));
                   abortControllerRef.current.abort();
                   // Wait a tick for abort to propagate
                   _context.n = 5;
@@ -1251,7 +1258,7 @@ function useFetch(paramsCallback, watchList) {
                 case 5:
                   // Create new AbortController for this request
                   abortControllerRef.current = new AbortController();
-                  console.log("\uD83D\uDCE1 [useFetch] Starting request for: ".concat(itemToProcess.url));
+                  console.log("\uD83D\uDCE1 [useFetch/Hook] Starting request for: ".concat(itemToProcess.url));
                   _context.p = 6;
                   auth = (_itemToProcess$auth = itemToProcess.auth) !== null && _itemToProcess$auth !== void 0 ? _itemToProcess$auth : true;
                   f = auth ? capturedFetchAuth : client.fetchJSON;
@@ -1269,7 +1276,7 @@ function useFetch(paramsCallback, watchList) {
                   return f(itemToProcess.url, itemToProcess.data, options);
                 case 8:
                   data = _context.v;
-                  console.log("\u2705 [useFetch] Request completed successfully for: ".concat(itemToProcess.url));
+                  console.log("\u2705 [useFetch/Hook] Request completed successfully for: ".concat(itemToProcess.url));
                   if (!itemToProcess.ok) {
                     _context.n = 9;
                     break;
@@ -1285,10 +1292,10 @@ function useFetch(paramsCallback, watchList) {
                     _context.n = 11;
                     break;
                   }
-                  console.log("\uD83D\uDED1 [useFetch] Request aborted for: ".concat(itemToProcess.url));
+                  console.log("\uD83D\uDED1 [useFetch/Hook] Request aborted for: ".concat(itemToProcess.url));
                   return _context.a(2);
                 case 11:
-                  console.log("\u274C [useFetch] Request failed for: ".concat(itemToProcess.url), _t2);
+                  console.log("\u274C [useFetch/Hook] Request failed for: ".concat(itemToProcess.url), _t2);
                   if (!itemToProcess.error) {
                     _context.n = 13;
                     break;
@@ -1314,13 +1321,13 @@ function useFetch(paramsCallback, watchList) {
                   _context.p = 17;
                   _t3 = _context.v;
                   if (_t3 instanceof Error && _t3.name !== "AbortError") {
-                    console.log("\uD83D\uDCA5 [useFetch] Effect error for: ".concat((_items$2 = items[0]) === null || _items$2 === void 0 ? void 0 : _items$2.url), _t3);
+                    console.log("\uD83D\uDCA5 [useFetch/Hook] Effect error for: ".concat((_items$2 = items[0]) === null || _items$2 === void 0 ? void 0 : _items$2.url), _t3);
                     setError(_t3 instanceof Error ? _t3 : new Error(String(_t3)));
                   }
                   throw _t3;
                 case 18:
                   _context.p = 18;
-                  console.log("\uD83C\uDFC1 [useFetch] Effect completed for: ".concat((_items$3 = items[0]) === null || _items$3 === void 0 ? void 0 : _items$3.url));
+                  console.log("\uD83C\uDFC1 [useFetch/Hook] Effect completed for: ".concat((_items$3 = items[0]) === null || _items$3 === void 0 ? void 0 : _items$3.url));
                   setLoading(false);
                   return _context.f(18);
                 case 19:
@@ -1346,14 +1353,14 @@ function useFetch(paramsCallback, watchList) {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   var cancel = function cancel() {
-    console.log("\uD83D\uDEAB [useFetch] Manual cancel requested");
+    console.log("\uD83D\uDEAB [useFetch/Hook] Manual cancel requested");
     if (abortControllerRef.current) {
-      console.log("\uD83D\uDED1 [useFetch] Aborting current request via cancel()");
+      console.log("\uD83D\uDED1 [useFetch/Hook] Aborting current request via cancel()");
       abortControllerRef.current.abort();
       abortControllerRef.current = null;
     }
     if (coalescerRef.current) {
-      console.log("\uD83D\uDDD1\uFE0F [useFetch] Canceling coalescer queue");
+      console.log("\uD83D\uDDD1\uFE0F [useFetch/Hook] Canceling coalescer queue");
       coalescerRef.current.cancel();
     }
   };
@@ -1378,7 +1385,7 @@ function useFetch(paramsCallback, watchList) {
           throw new Error("RequestCoalescer not initialized");
         case 1:
           currentParams = paramsRef.current;
-          console.log("\uD83D\uDD0D [useFetch] Received request for: ".concat(currentParams.url), {
+          console.log("\uD83D\uDD0D [useFetch/Hook] Received request for: ".concat(currentParams.url), {
             mode: currentParams.mode || "last",
             hasData: !!currentParams.data,
             hasAuth: (_currentParams$auth = currentParams.auth) !== null && _currentParams$auth !== void 0 ? _currentParams$auth : true
@@ -1392,7 +1399,7 @@ function useFetch(paramsCallback, watchList) {
         case 4:
           _context2.p = 4;
           _t4 = _context2.v;
-          console.log("\u274C [useFetch] Request failed for: ".concat(currentParams.url), _t4);
+          console.log("\u274C [useFetch/Hook] Request failed for: ".concat(currentParams.url), _t4);
 
           // Handle first-strict mode errors
           setError(_t4 instanceof Error ? _t4 : new Error(String(_t4)));
