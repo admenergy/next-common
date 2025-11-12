@@ -4181,7 +4181,8 @@ jest-worker@^27.4.5:
 
 "js-common@https://github.com/admenergy/js-common.git#main":
   version "1.0.0"
-  resolved "https://github.com/admenergy/js-common.git#75a4c4f26a215ef660c1a44c017ce23352000795"
+  uid "7852c20e00d63b50017bba61725142e9df51028c"
+  resolved "https://github.com/admenergy/js-common.git#7852c20e00d63b50017bba61725142e9df51028c"
   dependencies:
     "@testing-library/jest-dom" "^6.8.0"
     json5 "^2.2.3"
