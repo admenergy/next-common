@@ -11,123 +11,7 @@
 return /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 155:
-/***/ ((module) => {
-
-"use strict";
-module.exports = __WEBPACK_EXTERNAL_MODULE__155__;
-
-/***/ }),
-
-/***/ 311:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  ErrorMessage: () => (/* reexport */ ErrorMessage),
-  PageLoadingIndicator: () => (/* reexport */ PageLoadingIndicator)
-});
-
-// EXTERNAL MODULE: external "react"
-var external_react_ = __webpack_require__(155);
-var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_);
-;// ./app/components/ErrorMessage.tsx
-
-/**
- * A user-friendly error message.
- *
- * @example
- * <ErrorMessage friendly="Oops! Something went wrong." error={new Error("Detailed error message")} />
- */
-function ErrorMessage(_ref) {
-  var friendly = _ref.friendly,
-    error = _ref.error;
-  if (error instanceof Error) {
-    return /*#__PURE__*/external_react_default().createElement("div", {
-      style: {
-        display: "flex",
-        flexFlow: "column"
-      }
-    }, /*#__PURE__*/external_react_default().createElement("b", null, friendly), (error === null || error === void 0 ? void 0 : error.message) && /*#__PURE__*/external_react_default().createElement("div", null, /*#__PURE__*/external_react_default().createElement("pre", null, error === null || error === void 0 ? void 0 : error.message)));
-  } else if (error !== null && error !== void 0 && error.message) {
-    return /*#__PURE__*/external_react_default().createElement("div", {
-      style: {
-        display: "flex",
-        flexFlow: "column"
-      }
-    }, /*#__PURE__*/external_react_default().createElement("b", null, friendly), (error === null || error === void 0 ? void 0 : error.message) && /*#__PURE__*/external_react_default().createElement("div", null, /*#__PURE__*/external_react_default().createElement("pre", null, error === null || error === void 0 ? void 0 : error.message)));
-  } else {
-    return /*#__PURE__*/external_react_default().createElement((external_react_default()).Fragment, null, friendly);
-  }
-}
-// EXTERNAL MODULE: external "@mui/material"
-var material_ = __webpack_require__(823);
-;// ./app/components/PageLoadingIndicator.tsx
-
-
-var styles = {
-  centerAlignOuter: {
-    display: "flex",
-    width: "100%",
-    alignItems: "center",
-    flexFlow: "column"
-  },
-  centerAlignInner: {
-    display: "flex",
-    height: "100vh",
-    alignItems: "center",
-    textAlign: "center"
-  },
-  centerAlignContent: {
-    "& > *": {
-      textAlign: "initial"
-    }
-  },
-  panelRoot: {
-    maxWidth: "600px"
-  }
-};
-
-/**
- * Represents a component that displays a loading indicator.
- * This component is designed to be centered on the page and shows a circular progress indicator.
- *
- * @returns A React element that renders a loading indicator.
- * @example
- * ```tsx
- * <PageLoadingIndicator />
- * ```
- */
-function PageLoadingIndicator() {
-  return /*#__PURE__*/external_react_default().createElement(material_.Box, {
-    sx: styles.centerAlignOuter
-  }, /*#__PURE__*/external_react_default().createElement(material_.Box, {
-    sx: styles.centerAlignInner
-  }, /*#__PURE__*/external_react_default().createElement(material_.Box, {
-    sx: styles.centerAlignContent
-  }, /*#__PURE__*/external_react_default().createElement(material_.CircularProgress, {
-    size: 128
-  }))));
-}
-;// ./app/components/index.ts
-
-
-
-/***/ }),
-
-/***/ 773:
-/***/ ((module) => {
-
-"use strict";
-module.exports = __WEBPACK_EXTERNAL_MODULE__773__;
-
-/***/ }),
-
-/***/ 774:
+/***/ 127:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -712,6 +596,122 @@ function sset(key, value) {
 
 /***/ }),
 
+/***/ 155:
+/***/ ((module) => {
+
+"use strict";
+module.exports = __WEBPACK_EXTERNAL_MODULE__155__;
+
+/***/ }),
+
+/***/ 311:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  ErrorMessage: () => (/* reexport */ ErrorMessage),
+  PageLoadingIndicator: () => (/* reexport */ PageLoadingIndicator)
+});
+
+// EXTERNAL MODULE: external "react"
+var external_react_ = __webpack_require__(155);
+var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_);
+;// ./app/components/ErrorMessage.tsx
+
+/**
+ * A user-friendly error message.
+ *
+ * @example
+ * <ErrorMessage friendly="Oops! Something went wrong." error={new Error("Detailed error message")} />
+ */
+function ErrorMessage(_ref) {
+  var friendly = _ref.friendly,
+    error = _ref.error;
+  if (error instanceof Error) {
+    return /*#__PURE__*/external_react_default().createElement("div", {
+      style: {
+        display: "flex",
+        flexFlow: "column"
+      }
+    }, /*#__PURE__*/external_react_default().createElement("b", null, friendly), (error === null || error === void 0 ? void 0 : error.message) && /*#__PURE__*/external_react_default().createElement("div", null, /*#__PURE__*/external_react_default().createElement("pre", null, error === null || error === void 0 ? void 0 : error.message)));
+  } else if (error !== null && error !== void 0 && error.message) {
+    return /*#__PURE__*/external_react_default().createElement("div", {
+      style: {
+        display: "flex",
+        flexFlow: "column"
+      }
+    }, /*#__PURE__*/external_react_default().createElement("b", null, friendly), (error === null || error === void 0 ? void 0 : error.message) && /*#__PURE__*/external_react_default().createElement("div", null, /*#__PURE__*/external_react_default().createElement("pre", null, error === null || error === void 0 ? void 0 : error.message)));
+  } else {
+    return /*#__PURE__*/external_react_default().createElement((external_react_default()).Fragment, null, friendly);
+  }
+}
+// EXTERNAL MODULE: external "@mui/material"
+var material_ = __webpack_require__(823);
+;// ./app/components/PageLoadingIndicator.tsx
+
+
+var styles = {
+  centerAlignOuter: {
+    display: "flex",
+    width: "100%",
+    alignItems: "center",
+    flexFlow: "column"
+  },
+  centerAlignInner: {
+    display: "flex",
+    height: "100vh",
+    alignItems: "center",
+    textAlign: "center"
+  },
+  centerAlignContent: {
+    "& > *": {
+      textAlign: "initial"
+    }
+  },
+  panelRoot: {
+    maxWidth: "600px"
+  }
+};
+
+/**
+ * Represents a component that displays a loading indicator.
+ * This component is designed to be centered on the page and shows a circular progress indicator.
+ *
+ * @returns A React element that renders a loading indicator.
+ * @example
+ * ```tsx
+ * <PageLoadingIndicator />
+ * ```
+ */
+function PageLoadingIndicator() {
+  return /*#__PURE__*/external_react_default().createElement(material_.Box, {
+    sx: styles.centerAlignOuter
+  }, /*#__PURE__*/external_react_default().createElement(material_.Box, {
+    sx: styles.centerAlignInner
+  }, /*#__PURE__*/external_react_default().createElement(material_.Box, {
+    sx: styles.centerAlignContent
+  }, /*#__PURE__*/external_react_default().createElement(material_.CircularProgress, {
+    size: 128
+  }))));
+}
+;// ./app/components/index.ts
+
+
+
+/***/ }),
+
+/***/ 773:
+/***/ ((module) => {
+
+"use strict";
+module.exports = __WEBPACK_EXTERNAL_MODULE__773__;
+
+/***/ }),
+
 /***/ 823:
 /***/ ((module) => {
 
@@ -852,8 +852,8 @@ function useBetterSnackbar() {
     errorSnack: errorSnack
   };
 }
-// EXTERNAL MODULE: ../../home/vscode/.yarn/berry/cache/js-common-https-f06c74b272-10c0.zip/node_modules/js-common/dist/js/client/index.js
-var client = __webpack_require__(774);
+// EXTERNAL MODULE: ../../home/vscode/.yarn/berry/cache/js-common-https-48a9d04172-10c0.zip/node_modules/js-common/dist/js/client/index.js
+var client = __webpack_require__(127);
 ;// ./app/hooks/RequestCoalescer.ts
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }

@@ -6124,7 +6124,7 @@ __metadata:
 
 "js-common@https://github.com/admenergy/js-common.git#yarn-4-and-eslint-9":
   version: 1.0.0
-  resolution: "js-common@https://github.com/admenergy/js-common.git#commit=8830d1393c6419afdbf86bb3bf46ab3f0e3bb8e6"
+  resolution: "js-common@https://github.com/admenergy/js-common.git#commit=8adbc48f45334afd7610999d993ecad629c56c65"
   dependencies:
     "@testing-library/jest-dom": "npm:^6.8.0"
     json5: "npm:^2.2.3"
@@ -6133,7 +6133,7 @@ __metadata:
     notistack: "npm:^3.0.2"
     react: "npm:<19.0.0"
     react-dom: "npm:<19.0.0"
-  checksum: 10c0/2130c8976689513bcad813342d23ef93de9e993dd836f09b6d03610ecd14a112a739602c0d0c17b0787149c1721f7a4db3e60691480c0e5f36ebd678d65ba8fc
+  checksum: 10c0/a1a1a2cdbd8ce89cab0f3fa80684495cd203ab0621c31ddfc40389d05c2b5c1d2e565819d809d30ab3a092425b98494772ba60c5020d4cea3585c2f420be2415
   languageName: node
   linkType: hard
 
