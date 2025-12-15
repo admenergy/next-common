@@ -1,4 +1,4 @@
-import { FetchJsonOptions, fetchJSON } from "js-common/client";
+import { fetchJSON, type FetchJsonOptions } from "js-common/client";
 import React, {
   createContext,
   useCallback,

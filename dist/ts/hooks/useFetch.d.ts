@@ -1,4 +1,4 @@
-import { FetchJsonOptions } from "js-common/client";
+import { type FetchJsonOptions } from "js-common/client";
 import React from "react";
 export interface UseFetchParams {
     url: string;
