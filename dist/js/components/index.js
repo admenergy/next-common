@@ -12,19 +12,19 @@ return /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 155:
-/***/ ((module) => {
+/***/ 155
+(module) {
 
 module.exports = __WEBPACK_EXTERNAL_MODULE__155__;
 
-/***/ }),
+/***/ },
 
-/***/ 823:
-/***/ ((module) => {
+/***/ 823
+(module) {
 
 module.exports = __WEBPACK_EXTERNAL_MODULE__823__;
 
-/***/ })
+/***/ }
 
 /******/ 	});
 /************************************************************************/
