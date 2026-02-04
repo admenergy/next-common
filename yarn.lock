@@ -18,7 +18,7 @@ __metadata:
   dependencies:
     "@azure/msal-browser": "npm:^5.1.0"
     "@azure/msal-node": "npm:^5.0.2"
-    "@azure/msal-react": "npm:^3.0.23"
+    "@azure/msal-react": "npm:^5.0.3"
     "@babel/core": "npm:^7.28.6"
     "@babel/preset-env": "npm:^7.28.6"
     "@babel/preset-react": "npm:^7.28.5"
@@ -148,13 +148,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/msal-react@npm:^3.0.23":
-  version: 3.0.23
-  resolution: "@azure/msal-react@npm:3.0.23"
+"@azure/msal-react@npm:^5.0.3":
+  version: 5.0.3
+  resolution: "@azure/msal-react@npm:5.0.3"
   peerDependencies:
-    "@azure/msal-browser": ^4.27.0
-    react: ^16.8.0 || ^17 || ^18 || ^19.2.1
-  checksum: 10c0/f03f1193f9ce67204271c944ca6896d1c88d261fdba5108a21bfc913095bed765c7a24fba7b90ccfb20b346235828efbbf4fee625f7cfe8a55fee57405fd2bd3
+    "@azure/msal-browser": ^5.1.0
+    react: ^19.2.1
+  checksum: 10c0/0bcf9f8a8d511b0e274774ac44138a379837de655c22b52989d84db606941e3a9f5de6cc597ac76e23969faef66e05b3bbb775743a2884e6b07fbead9f3b9ab3
   languageName: node
   linkType: hard
 
