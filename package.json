@@ -54,7 +54,7 @@
     "@mui/material": "<8.0.0",
     "cookies-next": "^6.1.1",
     "js-common": "https://github.com/admenergy/js-common.git#main",
-    "lodash": "^4.17.21",
+    "lodash": "^4.17.23",
     "lodash-es": "^4.17.23",
     "notistack": "^3.0.2",
     "react": "<19.0.0",
