@@ -4477,16 +4477,16 @@ __metadata:
 
 "js-common@https://github.com/admenergy/js-common.git#main":
   version: 1.0.0
-  resolution: "js-common@https://github.com/admenergy/js-common.git#commit=8409496b9a3ad9f7359a145c389fb0e20881354b"
+  resolution: "js-common@https://github.com/admenergy/js-common.git#commit=9835b02e08a6a4aaaeaacd996390be2618293dee"
   dependencies:
     "@testing-library/jest-dom": "npm:^6.9.1"
     json5: "npm:^2.2.3"
-    lodash: "npm:^4.17.21"
-    lodash-es: "npm:^4.17.21"
+    lodash: "npm:^4.17.23"
+    lodash-es: "npm:^4.17.23"
     notistack: "npm:^3.0.2"
     react: "npm:<19.0.0"
     react-dom: "npm:<19.0.0"
-  checksum: 10c0/a8ca50d84f6c653e57f6505486a4f7a38420ec3d63ae12b8c4e72600f449cb4af59f4acf08fdded6f8ad9914d9476f600aa454f85fddec2b44e0ed0f464b7355
+  checksum: 10c0/853159fa472a2a69ca14b1d855ee91485b9d8f19dd35af54712b4976de6e0248519788e22af4e9e909841aa885c36bbd670eab1b2ff124739388bde14668c7d1
   languageName: node
   linkType: hard
 
@@ -4616,13 +4616,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash-es@npm:^4.17.21":
-  version: 4.17.21
-  resolution: "lodash-es@npm:4.17.21"
-  checksum: 10c0/fb407355f7e6cd523a9383e76e6b455321f0f153a6c9625e21a8827d10c54c2a2341bd2ae8d034358b60e07325e1330c14c224ff582d04612a46a4f0479ff2f2
-  languageName: node
-  linkType: hard
-
 "lodash-es@npm:^4.17.23":
   version: 4.17.23
   resolution: "lodash-es@npm:4.17.23"
@@ -4634,13 +4627,6 @@ __metadata:
   version: 4.0.8
   resolution: "lodash.debounce@npm:4.0.8"
   checksum: 10c0/762998a63e095412b6099b8290903e0a8ddcb353ac6e2e0f2d7e7d03abd4275fe3c689d88960eb90b0dde4f177554d51a690f22a343932ecbc50a5d111849987
-  languageName: node
-  linkType: hard
-
-"lodash@npm:^4.17.21":
-  version: 4.17.21
-  resolution: "lodash@npm:4.17.21"
-  checksum: 10c0/d8cbea072bb08655bb4c989da418994b073a608dffa608b09ac04b43a791b12aeae7cd7ad919aa4c925f33b48490b5cfe6c1f71d827956071dae2e7bb3a6b74c
   languageName: node
   linkType: hard
 
