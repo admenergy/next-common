@@ -1,5 +1,6 @@
-import { fetchJSON, type FetchJsonOptions } from "js-common/client";
-import React, {
+import { type FetchJsonOptions, fetchJSON } from "js-common/client";
+import type React from "react";
+import {
   createContext,
   useCallback,
   useContext,
@@ -191,7 +192,7 @@ export function useFetch(
         coalescerRef.current = null;
       }
     };
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [errorSnack, fetchAuth]);
 
   const cancel = () => {
     console.log("🛑 useFetch.cancel() called");

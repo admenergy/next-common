@@ -50,8 +50,7 @@ export function useLoadingCallback<T extends any[], R>(
         setLoading(false);
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [errorSnack, ...watchList],
+    [errorSnack, ...watchList, callback],
   );
 
   return [wrappedCallback, loading, error];
