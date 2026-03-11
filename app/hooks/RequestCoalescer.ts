@@ -215,7 +215,6 @@ export class RequestCoalescer<TItem> {
           this.state.executionBuffer[this.state.executionBuffer.length - 1],
         ];
         break;
-      case "batch":
       default:
         itemsToProcess = [...this.state.executionBuffer];
         break;

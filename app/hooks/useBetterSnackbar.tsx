@@ -1,5 +1,5 @@
 import { useSnackbar } from "notistack";
-import React, { useCallback } from "react";
+import { useCallback } from "react";
 import { ErrorMessage } from "~/components";
 
 export function useBetterSnackbar() {
