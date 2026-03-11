@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("react"), require("@mui/material"));
+		module.exports = factory(require("@mui/material"));
 	else if(typeof define === 'function' && define.amd)
-		define(["react", "@mui/material"], factory);
+		define(["@mui/material"], factory);
 	else if(typeof exports === 'object')
-		exports["@admenergy/next-common"] = factory(require("react"), require("@mui/material"));
+		exports["@admenergy/next-common"] = factory(require("@mui/material"));
 	else
-		root["@admenergy/next-common"] = factory(root["react"], root["@mui/material"]);
-})(this, (__WEBPACK_EXTERNAL_MODULE__155__, __WEBPACK_EXTERNAL_MODULE__823__) => {
+		root["@admenergy/next-common"] = factory(root["@mui/material"]);
+})(this, (__WEBPACK_EXTERNAL_MODULE__823__) => {
 return /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
@@ -16,13 +16,6 @@ return /******/ (() => { // webpackBootstrap
 (module) {
 
 module.exports = __WEBPACK_EXTERNAL_MODULE__823__;
-
-/***/ },
-
-/***/ 155
-(module) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE__155__;
 
 /***/ }
 
@@ -53,18 +46,6 @@ module.exports = __WEBPACK_EXTERNAL_MODULE__155__;
 /******/ 	}
 /******/ 	
 /************************************************************************/
-/******/ 	/* webpack/runtime/compat get default export */
-/******/ 	(() => {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = (module) => {
-/******/ 			var getter = module && module.__esModule ?
-/******/ 				() => (module['default']) :
-/******/ 				() => (module);
-/******/ 			__webpack_require__.d(getter, { a: getter });
-/******/ 			return getter;
-/******/ 		};
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
@@ -104,11 +85,7 @@ __webpack_require__.d(__webpack_exports__, {
   PageLoadingIndicator: () => (/* reexport */ PageLoadingIndicator)
 });
 
-// EXTERNAL MODULE: external "react"
-var external_react_ = __webpack_require__(155);
-var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_);
 ;// ./app/components/ErrorMessage.tsx
-
 /**
  * A user-friendly error message.
  *
@@ -119,27 +96,26 @@ function ErrorMessage(_ref) {
   var friendly = _ref.friendly,
     error = _ref.error;
   if (error instanceof Error) {
-    return /*#__PURE__*/external_react_default().createElement("div", {
+    return /*#__PURE__*/React.createElement("div", {
       style: {
         display: "flex",
         flexFlow: "column"
       }
-    }, /*#__PURE__*/external_react_default().createElement("b", null, friendly), (error === null || error === void 0 ? void 0 : error.message) && /*#__PURE__*/external_react_default().createElement("div", null, /*#__PURE__*/external_react_default().createElement("pre", null, error === null || error === void 0 ? void 0 : error.message)));
+    }, /*#__PURE__*/React.createElement("b", null, friendly), (error === null || error === void 0 ? void 0 : error.message) && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("pre", null, error === null || error === void 0 ? void 0 : error.message)));
   } else if (error !== null && error !== void 0 && error.message) {
-    return /*#__PURE__*/external_react_default().createElement("div", {
+    return /*#__PURE__*/React.createElement("div", {
       style: {
         display: "flex",
         flexFlow: "column"
       }
-    }, /*#__PURE__*/external_react_default().createElement("b", null, friendly), (error === null || error === void 0 ? void 0 : error.message) && /*#__PURE__*/external_react_default().createElement("div", null, /*#__PURE__*/external_react_default().createElement("pre", null, error === null || error === void 0 ? void 0 : error.message)));
+    }, /*#__PURE__*/React.createElement("b", null, friendly), (error === null || error === void 0 ? void 0 : error.message) && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("pre", null, error === null || error === void 0 ? void 0 : error.message)));
   } else {
-    return /*#__PURE__*/external_react_default().createElement((external_react_default()).Fragment, null, friendly);
+    return /*#__PURE__*/React.createElement(React.Fragment, null, friendly);
   }
 }
 // EXTERNAL MODULE: external "@mui/material"
 var material_ = __webpack_require__(823);
 ;// ./app/components/PageLoadingIndicator.tsx
-
 
 var styles = {
   centerAlignOuter: {
@@ -175,13 +151,13 @@ var styles = {
  * ```
  */
 function PageLoadingIndicator() {
-  return /*#__PURE__*/external_react_default().createElement(material_.Box, {
+  return /*#__PURE__*/React.createElement(material_.Box, {
     sx: styles.centerAlignOuter
-  }, /*#__PURE__*/external_react_default().createElement(material_.Box, {
+  }, /*#__PURE__*/React.createElement(material_.Box, {
     sx: styles.centerAlignInner
-  }, /*#__PURE__*/external_react_default().createElement(material_.Box, {
+  }, /*#__PURE__*/React.createElement(material_.Box, {
     sx: styles.centerAlignContent
-  }, /*#__PURE__*/external_react_default().createElement(material_.CircularProgress, {
+  }, /*#__PURE__*/React.createElement(material_.CircularProgress, {
     size: 128
   }))));
 }
