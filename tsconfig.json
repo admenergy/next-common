@@ -9,9 +9,8 @@
     "emitDeclarationOnly": true,
     "outDir": "./dist/ts",
     "rootDir": "./app",
-    "baseUrl": "./app",
     "paths": {
-      "~/*": ["./*"]
+      "~/*": ["./app/*"]
     },
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
