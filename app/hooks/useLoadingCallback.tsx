@@ -11,9 +11,9 @@ const DEV = process.env.NODE_ENV !== "production";
  *
  * @returns A hook containing: wrapped callback, loading state, and Error.
  */
-export function useLoadingCallback<T extends any[], R>(
+export function useLoadingCallback<T extends unknown[], R>(
   callback: (...args: T) => Promise<R>,
-  watchList: any[],
+  watchList: unknown[],
 ): [(...args: T) => Promise<R | undefined>, boolean, Error | null] {
   if (DEV) {
     if (typeof callback !== "function") {
