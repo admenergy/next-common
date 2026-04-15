@@ -12,7 +12,7 @@ interface ErrorMessageProps {
  * <ErrorMessage friendly="Oops! Something went wrong." error={new Error("Detailed error message")} />
  */
 export function ErrorMessage({ friendly, error }: ErrorMessageProps) {
-  if (error instanceof Error) {
+  if (error?.message) {
     return (
       <div
         style={{
@@ -21,30 +21,12 @@ export function ErrorMessage({ friendly, error }: ErrorMessageProps) {
         }}
       >
         <b>{friendly}</b>
-        {error?.message && (
-          <div>
-            <pre>{error?.message}</pre>
-          </div>
-        )}
+        <div>
+          <pre>{error.message}</pre>
+        </div>
       </div>
     );
-  } else if (error?.message) {
-    return (
-      <div
-        style={{
-          display: "flex",
-          flexFlow: "column",
-        }}
-      >
-        <b>{friendly}</b>
-        {error?.message && (
-          <div>
-            <pre>{error?.message}</pre>
-          </div>
-        )}
-      </div>
-    );
-  } else {
-    return <>{friendly}</>;
   }
+
+  return <>{friendly}</>;
 }
