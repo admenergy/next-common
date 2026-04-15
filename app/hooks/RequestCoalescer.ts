@@ -189,6 +189,13 @@ export class RequestCoalescer<TItem> {
   }
 
   /**
+   * Set the abort promise that the coalescer awaits during abort-mode cancellation.
+   */
+  public setAbortPromise(promise: Promise<void> | null): void {
+    this.state.abortPromise = promise;
+  }
+
+  /**
    * Execute the effect with the current buffer
    */
   private async executeEffect(): Promise<void> {

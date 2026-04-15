@@ -13,14 +13,14 @@ import { useBetterSnackbar } from "~/hooks/useBetterSnackbar";
 
 export interface UseFetchParams {
   url: string;
-  data?: { [key: string]: any };
-  options?: { [key: string]: any };
+  data?: { [key: string]: unknown };
+  options?: { [key: string]: unknown };
   auth?: boolean;
   validate?: () => Promise<boolean>;
-  ok?: (data: any) => void;
+  ok?: (data: unknown) => void;
   error?: (error: Error) => void;
   mode?: "first" | "first-strict" | "last" | "batch";
-  combine?: (items: any[]) => any;
+  combine?: (items: UseFetchParams[]) => UseFetchParams;
 }
 
 export type UseFetchReturn = [
@@ -35,7 +35,7 @@ export interface UseFetcherContextProps {
     url: string,
     data?: object,
     options?: FetchJsonOptions,
-  ) => Promise<any>;
+  ) => Promise<unknown>;
 }
 
 const UseFetcherContext = createContext<UseFetcherContextProps>({
@@ -65,7 +65,7 @@ const UseFetcherContext = createContext<UseFetcherContextProps>({
  */
 export function useFetch(
   paramsCallback: () => UseFetchParams,
-  watchList: any[],
+  watchList: unknown[],
 ): UseFetchReturn {
   const { fetchAuth } = useContext(UseFetcherContext);
   const { errorSnack } = useBetterSnackbar();
@@ -91,7 +91,7 @@ export function useFetch(
       const capturedErrorSnack = errorSnack;
       const capturedCombine = paramsRef.current.combine;
 
-      coalescerRef.current = new RequestCoalescer({
+      coalescerRef.current = new RequestCoalescer<UseFetchParams>({
         mode,
         combine: capturedCombine,
         onAbort: () => {
@@ -126,7 +126,7 @@ export function useFetch(
 
             // Store abort promise in coalescer state
             if (coalescerRef.current) {
-              (coalescerRef.current as any).state.abortPromise = abortPromise;
+              coalescerRef.current.setAbortPromise(abortPromise);
             }
 
             // Create new AbortController for this request
@@ -242,7 +242,7 @@ export function UseFetchProvider({
     url: string,
     data?: object,
     options?: FetchJsonOptions,
-  ) => Promise<any>;
+  ) => Promise<unknown>;
 }) {
   return (
     <UseFetcherContext.Provider value={{ fetchAuth }}>
