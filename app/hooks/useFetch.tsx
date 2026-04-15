@@ -65,7 +65,7 @@ const UseFetcherContext = createContext<UseFetcherContextProps>({
  */
 export function useFetch(
   paramsCallback: () => UseFetchParams,
-  watchList: any[],
+  watchList: unknown[],
 ): UseFetchReturn {
   const { fetchAuth } = useContext(UseFetcherContext);
   const { errorSnack } = useBetterSnackbar();
