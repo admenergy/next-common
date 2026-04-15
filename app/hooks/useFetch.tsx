@@ -20,7 +20,7 @@ export interface UseFetchParams {
   ok?: (data: unknown) => void;
   error?: (error: Error) => void;
   mode?: "first" | "first-strict" | "last" | "batch";
-  combine?: (items: any[]) => any;
+  combine?: (items: UseFetchParams[]) => UseFetchParams;
 }
 
 export type UseFetchReturn = [
@@ -126,7 +126,7 @@ export function useFetch(
 
             // Store abort promise in coalescer state
             if (coalescerRef.current) {
-              (coalescerRef.current as any).state.abortPromise = abortPromise;
+              coalescerRef.current.setAbortPromise(abortPromise);
             }
 
             // Create new AbortController for this request
