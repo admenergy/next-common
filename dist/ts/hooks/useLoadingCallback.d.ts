@@ -6,4 +6,4 @@
  *
  * @returns A hook containing: wrapped callback, loading state, and Error.
  */
-export declare function useLoadingCallback<T extends any[], R>(callback: (...args: T) => Promise<R>, watchList: any[]): [(...args: T) => Promise<R | undefined>, boolean, Error | null];
+export declare function useLoadingCallback<T extends unknown[], R>(callback: (...args: T) => Promise<R>, watchList: unknown[]): [(...args: T) => Promise<R | undefined>, boolean, Error | null];

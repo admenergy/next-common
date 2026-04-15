@@ -95,23 +95,15 @@ __webpack_require__.d(__webpack_exports__, {
 function ErrorMessage(_ref) {
   var friendly = _ref.friendly,
     error = _ref.error;
-  if (error instanceof Error) {
+  if (error !== null && error !== void 0 && error.message) {
     return /*#__PURE__*/React.createElement("div", {
       style: {
         display: "flex",
         flexFlow: "column"
       }
-    }, /*#__PURE__*/React.createElement("b", null, friendly), (error === null || error === void 0 ? void 0 : error.message) && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("pre", null, error === null || error === void 0 ? void 0 : error.message)));
-  } else if (error !== null && error !== void 0 && error.message) {
-    return /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: "flex",
-        flexFlow: "column"
-      }
-    }, /*#__PURE__*/React.createElement("b", null, friendly), (error === null || error === void 0 ? void 0 : error.message) && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("pre", null, error === null || error === void 0 ? void 0 : error.message)));
-  } else {
-    return /*#__PURE__*/React.createElement(React.Fragment, null, friendly);
+    }, /*#__PURE__*/React.createElement("b", null, friendly), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("pre", null, error.message)));
   }
+  return /*#__PURE__*/React.createElement(React.Fragment, null, friendly);
 }
 // EXTERNAL MODULE: external "@mui/material"
 var material_ = __webpack_require__(823);

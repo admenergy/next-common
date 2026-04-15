@@ -3,17 +3,17 @@ import type React from "react";
 export interface UseFetchParams {
     url: string;
     data?: {
-        [key: string]: any;
+        [key: string]: unknown;
     };
     options?: {
-        [key: string]: any;
+        [key: string]: unknown;
     };
     auth?: boolean;
     validate?: () => Promise<boolean>;
-    ok?: (data: any) => void;
+    ok?: (data: unknown) => void;
     error?: (error: Error) => void;
     mode?: "first" | "first-strict" | "last" | "batch";
-    combine?: (items: any[]) => any;
+    combine?: (items: UseFetchParams[]) => UseFetchParams;
 }
 export type UseFetchReturn = [
     () => Promise<void>,
@@ -23,7 +23,7 @@ export type UseFetchReturn = [
     () => void
 ];
 export interface UseFetcherContextProps {
-    fetchAuth?: (url: string, data?: object, options?: FetchJsonOptions) => Promise<any>;
+    fetchAuth?: (url: string, data?: object, options?: FetchJsonOptions) => Promise<unknown>;
 }
 /**
  * A custom React hook that uses `fetchAuth` / `fetchJSON` to make API calls and wraps around `useLoadingCallback`.
@@ -46,8 +46,8 @@ export interface UseFetcherContextProps {
  * const [fetchData, loading, error, cancel] = useFetch(() => ({ url: `/api/session/login`, data: { email, password } }), [email, password]);
  * -> fetchData: Function, loading: boolean, error: Error, cancel: Function
  */
-export declare function useFetch(paramsCallback: () => UseFetchParams, watchList: any[]): UseFetchReturn;
+export declare function useFetch(paramsCallback: () => UseFetchParams, watchList: unknown[]): UseFetchReturn;
 export declare function UseFetchProvider({ children, fetchAuth, }: {
     children: React.ReactNode;
-    fetchAuth?: (url: string, data?: object, options?: FetchJsonOptions) => Promise<any>;
+    fetchAuth?: (url: string, data?: object, options?: FetchJsonOptions) => Promise<unknown>;
 }): import("react/jsx-runtime").JSX.Element;
