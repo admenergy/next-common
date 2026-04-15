@@ -619,23 +619,15 @@ __webpack_require__.d(__webpack_exports__, {
 function ErrorMessage(_ref) {
   var friendly = _ref.friendly,
     error = _ref.error;
-  if (error instanceof Error) {
+  if (error !== null && error !== void 0 && error.message) {
     return /*#__PURE__*/React.createElement("div", {
       style: {
         display: "flex",
         flexFlow: "column"
       }
-    }, /*#__PURE__*/React.createElement("b", null, friendly), (error === null || error === void 0 ? void 0 : error.message) && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("pre", null, error === null || error === void 0 ? void 0 : error.message)));
-  } else if (error !== null && error !== void 0 && error.message) {
-    return /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: "flex",
-        flexFlow: "column"
-      }
-    }, /*#__PURE__*/React.createElement("b", null, friendly), (error === null || error === void 0 ? void 0 : error.message) && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("pre", null, error === null || error === void 0 ? void 0 : error.message)));
-  } else {
-    return /*#__PURE__*/React.createElement(React.Fragment, null, friendly);
+    }, /*#__PURE__*/React.createElement("b", null, friendly), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("pre", null, error.message)));
   }
+  return /*#__PURE__*/React.createElement(React.Fragment, null, friendly);
 }
 // EXTERNAL MODULE: external "@mui/material"
 var material_ = __webpack_require__(823);
@@ -1024,6 +1016,15 @@ var RequestCoalescer = /*#__PURE__*/function () {
     }
 
     /**
+     * Set the abort promise that the coalescer awaits during abort-mode cancellation.
+     */
+  }, {
+    key: "setAbortPromise",
+    value: function setAbortPromise(promise) {
+      this.state.abortPromise = promise;
+    }
+
+    /**
      * Execute the effect with the current buffer
      */
   }, {
@@ -1234,7 +1235,7 @@ function useFetch(paramsCallback, watchList) {
                     abortResolve = resolve;
                   }); // Store abort promise in coalescer state
                   if (coalescerRef.current) {
-                    coalescerRef.current.state.abortPromise = abortPromise;
+                    coalescerRef.current.setAbortPromise(abortPromise);
                   }
 
                   // Create new AbortController for this request

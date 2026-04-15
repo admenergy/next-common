@@ -51,6 +51,10 @@ export declare class RequestCoalescer<TItem> {
      */
     dispose(): void;
     /**
+     * Set the abort promise that the coalescer awaits during abort-mode cancellation.
+     */
+    setAbortPromise(promise: Promise<void> | null): void;
+    /**
      * Execute the effect with the current buffer
      */
     private executeEffect;
