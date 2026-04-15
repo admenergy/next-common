@@ -13,11 +13,11 @@ import { useBetterSnackbar } from "~/hooks/useBetterSnackbar";
 
 export interface UseFetchParams {
   url: string;
-  data?: { [key: string]: any };
-  options?: { [key: string]: any };
+  data?: { [key: string]: unknown };
+  options?: { [key: string]: unknown };
   auth?: boolean;
   validate?: () => Promise<boolean>;
-  ok?: (data: any) => void;
+  ok?: (data: unknown) => void;
   error?: (error: Error) => void;
   mode?: "first" | "first-strict" | "last" | "batch";
   combine?: (items: any[]) => any;
@@ -35,7 +35,7 @@ export interface UseFetcherContextProps {
     url: string,
     data?: object,
     options?: FetchJsonOptions,
-  ) => Promise<any>;
+  ) => Promise<unknown>;
 }
 
 const UseFetcherContext = createContext<UseFetcherContextProps>({
@@ -91,7 +91,7 @@ export function useFetch(
       const capturedErrorSnack = errorSnack;
       const capturedCombine = paramsRef.current.combine;
 
-      coalescerRef.current = new RequestCoalescer({
+      coalescerRef.current = new RequestCoalescer<UseFetchParams>({
         mode,
         combine: capturedCombine,
         onAbort: () => {
@@ -242,7 +242,7 @@ export function UseFetchProvider({
     url: string,
     data?: object,
     options?: FetchJsonOptions,
-  ) => Promise<any>;
+  ) => Promise<unknown>;
 }) {
   return (
     <UseFetcherContext.Provider value={{ fetchAuth }}>
